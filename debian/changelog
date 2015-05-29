@@ -1,4 +1,4 @@
-mutter (3.14.4-1) unstable; urgency=medium
+mutter (3.14.4-1~deb8u1) jessie; urgency=low
 
   * New upstream translation and bugfix release.
     + Includes new function required for the workaround to #768896 which 
