@@ -1,3 +1,9 @@
+mutter (3.28.3-1~ubuntu18.04.1) bionic; urgency=medium
+
+  * No-change backport to bionic (LP: #1783311)
+
+ -- Iain Lane <iain@orangesquash.org.uk>  Tue, 24 Jul 2018 12:20:56 +0100
+
 mutter (3.28.3-1) unstable; urgency=medium
 
   * New upstream release
@@ -53,15 +59,6 @@ mutter (3.28.2-3) unstable; urgency=medium
     multiplying its length by 5 (Closes: #891156)
 
  -- Simon McVittie <smcv@debian.org>  Sun, 08 Jul 2018 11:32:56 +0100
-
-mutter (3.28.2-2~ubuntu18.04.1) bionic; urgency=medium
-
-  [ Marco Trevisan (Treviño) ]
-  * Backport from cosmic (LP: #1778703)
-    - Hybrid GPU: 'shallow' crash while interacting with the
-      secondary screen (LP: #1758528)
-
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 26 Jun 2018 15:24:45 +0200
 
 mutter (3.28.2-2) unstable; urgency=medium
 
