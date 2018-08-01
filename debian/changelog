@@ -1,3 +1,9 @@
+mutter (3.28.3-2~ubuntu18.04.1) UNRELEASED; urgency=medium
+
+  * No-change backport to bionic
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 01 Aug 2018 15:00:59 +0200
+
 mutter (3.28.3-2) unstable; urgency=medium
 
   * Team upload
