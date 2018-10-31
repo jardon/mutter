@@ -1,4 +1,4 @@
-mutter (3.28.3-2~ubuntu18.04.2) UNRELEASED; urgency=medium
+mutter (3.28.3-2~ubuntu18.04.2) bionic; urgency=medium
 
   * d/p/renderer-native-Fallback-to-non-planar-API-if-gbm_bo_get_.patch:
     - Create back buffers in early intel GPU generations (LP: #1727356)
@@ -6,7 +6,7 @@ mutter (3.28.3-2~ubuntu18.04.2) UNRELEASED; urgency=medium
     d/p/clutter-Do-not-latch-modifiers-on-modifier-keys.patch
     - Fix typing capital letters when using OSD keyboard (LP: #1730211)
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 30 Oct 2018 12:25:42 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 31 Oct 2018 12:19:19 +0000
 
 mutter (3.28.3-2~ubuntu18.04.1) bionic; urgency=medium
 
