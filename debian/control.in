@@ -62,7 +62,7 @@ Vcs-Git: https://git.launchpad.net/~ubuntu-desktop/ubuntu/+source/mutter -b ubun
 
 Package: mutter
 Architecture: any
-Depends: gnome-settings-daemon,
+Depends: gnome-settings-daemon-schemas,
          gsettings-desktop-schemas (>= 3.21.4),
          mutter-common (>= ${source:Version}),
          zenity,
