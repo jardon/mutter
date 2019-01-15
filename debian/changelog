@@ -6,6 +6,18 @@ mutter (3.28.3+git20190124-0ubuntu18.04.1) UNRELEASED; urgency=medium
       LP: #1795774)
     - Make possible to launch gnome-shell in wayland using nvidia and EGLDevice
       backend (LP: #1805444)
+  * d/p/gpu-kms-Don-t-crash-if-drmModeGetResources-returns-N.patch,
+    d/p/native-gpu-Handle-drmModeSetCrtc-failing-gracefully.patch,
+    d/p/monitor-manager-Filter-out-low-screen-resolutions.patch,
+    d/p/window-wayland-Always-update-monitor-for-non-user-ops.patch,
+    d/p/window-Don-t-refuse-to-move-focus-to-the-grab-window.patch,
+    d/p/window-Explicitly-exclude-unmanaging-window-from-focus-ag.patch,
+    d/p/monitor-Use-current-monitor-mode-to-check-whether-active.patch,
+    d/p/core-Return-1-if-meta_window_get_monitor-is-called-on-an-.patch,
+    d/p/renderer-native-Fallback-to-non-planar-API-if-gbm_bo_get_.patch,
+    d/p/clutter-x11-Implement-keycode-lookup-from-keysyms-on-virt.patch,
+    d/p/clutter-Do-not-latch-modifiers-on-modifier-keys.patch:
+    - Removed as applied upstream
 
  -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 24 Jan 2019 18:05:12 +0000
 
