@@ -18,6 +18,9 @@ mutter (3.28.3+git20190124-0ubuntu18.04.1) UNRELEASED; urgency=medium
     d/p/clutter-x11-Implement-keycode-lookup-from-keysyms-on-virt.patch,
     d/p/clutter-Do-not-latch-modifiers-on-modifier-keys.patch:
     - Removed as applied upstream
+  * d/p/clutter-Fix-offscreen-effect-painting-of-clones.patch:
+    - Fix offscreen-effect painting of clones in zoom mode (LP: #1767648,
+      LP: #1779615)
 
  -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 24 Jan 2019 18:05:12 +0000
 
