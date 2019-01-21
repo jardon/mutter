@@ -6,6 +6,7 @@ mutter (3.28.3+git20190124-0ubuntu18.04.1) UNRELEASED; urgency=medium
       LP: #1795774)
     - Make possible to launch gnome-shell in wayland using nvidia and EGLDevice
       backend (LP: #1805444)
+  * debian/libmutter-2-0.symbols: Add new symbols
   * d/p/gpu-kms-Don-t-crash-if-drmModeGetResources-returns-N.patch,
     d/p/native-gpu-Handle-drmModeSetCrtc-failing-gracefully.patch,
     d/p/monitor-manager-Filter-out-low-screen-resolutions.patch,
