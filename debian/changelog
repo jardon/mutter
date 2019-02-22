@@ -1,3 +1,12 @@
+mutter (3.30.2-1~ubuntu18.10.4) UNRELEASED; urgency=medium
+
+  * Add support for high frame rate displays (LP: #1763892):
+    - Drop clutter-Smooth-out-master-clock-to-smooth-visuals.patch
+    - Add lp1763892-a-renderer-native-Add-hardware-presentation-timing.patch
+    - Add lp1763892-b-renderer-native-Advertise-_FEATURE_SWAP_THROTTLE.patch
+
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Fri, 22 Feb 2019 17:42:49 +0800
+
 mutter (3.30.2-1~ubuntu18.10.3) cosmic; urgency=medium
 
   * d/p/clutter-Avoid-rounding-compensation-when-invalidating-2D-.patch,
