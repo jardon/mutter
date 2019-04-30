@@ -3,6 +3,9 @@ mutter (3.28.3+git20190124-0ubuntu18.04.3) UNRELEASED; urgency=medium
   * d/p/monitor-manager-Don-t-use-switch-config-when-ensuring-con.patch,
     d/p/monitor-manager-use-MonitorsConfig-to-track-switch_config.patch:
     - Ensure switch display mode is cyclic (LP: #1772811)
+  * d/p/clutter-x11-Implement-keycode-remap-to-keysyms-on-virtual.patch,
+    d/p/clutter-x11-Consider-remapped-keys-when-guessing-the-keyc.patch:
+    - Implement keycode remap to keysyms on virtual key devices (LP: #1827029)
 
  -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 29 Apr 2019 23:29:24 -0500
 
