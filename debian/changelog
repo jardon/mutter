@@ -1,3 +1,11 @@
+mutter (3.28.3+git20190124-0ubuntu18.04.3) UNRELEASED; urgency=medium
+
+  * d/p/monitor-manager-Don-t-use-switch-config-when-ensuring-con.patch,
+    d/p/monitor-manager-use-MonitorsConfig-to-track-switch_config.patch:
+    - Ensure switch display mode is cyclic (LP: #1772811)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 29 Apr 2019 23:29:24 -0500
+
 mutter (3.28.3+git20190124-0ubuntu18.04.2) bionic; urgency=medium
 
   * control: Add Breaks on budgie-desktop verions broken by this upload.
