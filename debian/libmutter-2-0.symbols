@@ -549,6 +549,7 @@ libmutter-2.so.0 libmutter-2-0 #MINVER#
  meta_gpu_kms_error_quark@Base 3.28.2
  meta_gpu_kms_flip_closure_container_free@Base 3.28.3+git20190124
  meta_gpu_kms_flip_crtc@Base 3.28.2
+ meta_gpu_kms_get_current_time_ns@Base 3.28.3+git20190124-0ubuntu18.04.3
  meta_gpu_kms_get_fd@Base 3.28.2
  meta_gpu_kms_get_file_path@Base 3.28.2
  meta_gpu_kms_get_max_buffer_size@Base 3.28.2
