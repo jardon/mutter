@@ -85,7 +85,7 @@ index bcb3505..13862e9 100644
 +		--output=$@ \
 +		$<
 diff --git a/src/backends/native/meta-gpu-kms.c b/src/backends/native/meta-gpu-kms.c
-index 815caf5..e931e70 100644
+index 815caf5..02649c5 100644
 --- a/src/backends/native/meta-gpu-kms.c
 +++ b/src/backends/native/meta-gpu-kms.c
 @@ -27,6 +27,7 @@
@@ -212,7 +212,7 @@ index 815caf5..e931e70 100644
  }
  
 +int64_t
-+meta_gpu_kms_get_current_time_ns (MetaGpuKms *gpu_kms)
++_meta_gpu_kms_get_current_time_ns (MetaGpuKms *gpu_kms)
 +{
 +  struct timespec ts;
 +
@@ -252,14 +252,14 @@ index 815caf5..e931e70 100644
    meta_kms_resources_release (&resources);
  
 diff --git a/src/backends/native/meta-gpu-kms.h b/src/backends/native/meta-gpu-kms.h
-index 01c3f2c..6e7a2e5 100644
+index 01c3f2c..c12246c 100644
 --- a/src/backends/native/meta-gpu-kms.h
 +++ b/src/backends/native/meta-gpu-kms.h
 @@ -81,6 +81,8 @@ int meta_gpu_kms_get_fd (MetaGpuKms *gpu_kms);
  
  const char * meta_gpu_kms_get_file_path (MetaGpuKms *gpu_kms);
  
-+int64_t meta_gpu_kms_get_current_time_ns (MetaGpuKms *gpu_kms);
++int64_t _meta_gpu_kms_get_current_time_ns (MetaGpuKms *gpu_kms);
 +
  void meta_gpu_kms_get_max_buffer_size (MetaGpuKms *gpu_kms,
                                         int        *max_width,
@@ -273,7 +273,7 @@ index 01c3f2c..6e7a2e5 100644
  
  void meta_gpu_kms_flip_closure_container_free (MetaGpuKmsFlipClosureContainer *closure_container);
 diff --git a/src/backends/native/meta-renderer-native.c b/src/backends/native/meta-renderer-native.c
-index 470da88..f6adb3f 100644
+index 470da88..0fd104b 100644
 --- a/src/backends/native/meta-renderer-native.c
 +++ b/src/backends/native/meta-renderer-native.c
 @@ -61,6 +61,7 @@
@@ -348,7 +348,7 @@ index 470da88..f6adb3f 100644
 +  CoglRenderer *cogl_renderer = cogl_context_get_renderer (context);
 +  MetaGpuKms *gpu_kms = cogl_renderer->custom_winsys_user_data;
 +
-+  return meta_gpu_kms_get_current_time_ns (gpu_kms);
++  return _meta_gpu_kms_get_current_time_ns (gpu_kms);
 +}
 +
  static const CoglWinsysVtable *

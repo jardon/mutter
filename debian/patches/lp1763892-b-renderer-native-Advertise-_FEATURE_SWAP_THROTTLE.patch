@@ -19,7 +19,7 @@ Last-Update: 2019-03-13
  1 file changed, 13 insertions(+), 2 deletions(-)
 
 diff --git a/src/backends/native/meta-renderer-native.c b/src/backends/native/meta-renderer-native.c
-index f6adb3f..fa2e9b7 100644
+index 0fd104b..dce7981 100644
 --- a/src/backends/native/meta-renderer-native.c
 +++ b/src/backends/native/meta-renderer-native.c
 @@ -1997,6 +1997,13 @@ meta_renderer_native_init_egl_context (CoglContext *cogl_context,

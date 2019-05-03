@@ -13,8 +13,6 @@ mutter (3.28.3+git20190124-0ubuntu18.04.3) UNRELEASED; urgency=medium
     - Add support for high frame rate displays (LP: #1763892)
   * d/p/clutter-Smooth-out-master-clock-to-smooth-visuals.patch:
     - Dropped
-  * debian/libmutter-2-0.symbols:
-    - Added meta_gpu_kms_get_current_time_ns
 
  -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 29 Apr 2019 23:29:24 -0500
 
