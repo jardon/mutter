@@ -14,7 +14,12 @@ mutter (3.28.3+git20190124-0ubuntu18.04.3) UNRELEASED; urgency=medium
   * d/p/clutter-Smooth-out-master-clock-to-smooth-visuals.patch:
     - Dropped
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 29 Apr 2019 23:29:24 -0500
+  [ Iain Lane ]
+  * Update symbols file for *_switch_config.
+    These are added as a backport in this update. They are available in
+    subsequent releases (so generated deps should keep working fine).
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 07 May 2019 17:50:15 +0100
 
 mutter (3.28.3+git20190124-0ubuntu18.04.2) bionic; urgency=medium
 
