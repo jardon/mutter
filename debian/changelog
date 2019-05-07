@@ -1,4 +1,4 @@
-mutter (3.28.3+git20190124-0ubuntu18.04.3) UNRELEASED; urgency=medium
+mutter (3.28.3+git20190124-0ubuntu18.04.3) bionic; urgency=medium
 
   * d/p/monitor-manager-Don-t-use-switch-config-when-ensuring-con.patch,
     d/p/monitor-manager-use-MonitorsConfig-to-track-switch_config.patch:
@@ -19,7 +19,7 @@ mutter (3.28.3+git20190124-0ubuntu18.04.3) UNRELEASED; urgency=medium
     These are added as a backport in this update. They are available in
     subsequent releases (so generated deps should keep working fine).
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 07 May 2019 17:50:15 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 07 May 2019 18:05:21 +0100
 
 mutter (3.28.3+git20190124-0ubuntu18.04.2) bionic; urgency=medium
 
