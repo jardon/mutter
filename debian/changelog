@@ -1,11 +1,10 @@
-mutter (3.28.3+git20190124-0ubuntu18.04.3) bionic; urgency=medium
+mutter (3.28.4-0ubuntu18.04.1) bionic; urgency=medium
 
+  * New upstream release:
+    - Implement keycode remap to keysyms on virtual key devices (LP: #1827029)
   * d/p/monitor-manager-Don-t-use-switch-config-when-ensuring-con.patch,
     d/p/monitor-manager-use-MonitorsConfig-to-track-switch_config.patch:
     - Ensure switch display mode is cyclic (LP: #1772811)
-  * d/p/clutter-x11-Implement-keycode-remap-to-keysyms-on-virtual.patch,
-    d/p/clutter-x11-Consider-remapped-keys-when-guessing-the-keyc.patch:
-    - Implement keycode remap to keysyms on virtual key devices (LP: #1827029)
 
   [ Daniel van Vugt ]
   * d/p/lp1763892-a-renderer-native-Add-hardware-presentation-timing.patch,
