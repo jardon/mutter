@@ -1,4 +1,4 @@
-mutter (3.28.4-0ubuntu18.04.1) bionic; urgency=medium
+mutter (3.28.4-0ubuntu18.04.1) UNRELEASED; urgency=medium
 
   * New upstream release:
     - Implement keycode remap to keysyms on virtual key devices (LP: #1827029)
