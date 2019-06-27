@@ -1,3 +1,9 @@
+mutter (3.32.2+git20190626-1ubuntu1~19.04.1) UNRELEASED; urgency=medium
+
+  * No-change backport from eoan to disco for SRU.
+
+ -- Iain Lane <iain.lane@canonical.com>  Thu, 27 Jun 2019 16:28:08 +0100
+
 mutter (3.32.2+git20190626-1ubuntu1) eoan; urgency=medium
 
   * Merge with debian (LP: #1834493). Remaining changes:
