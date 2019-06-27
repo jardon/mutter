@@ -1,8 +1,8 @@
-mutter (3.32.2+git20190626-1ubuntu1~19.04.1) UNRELEASED; urgency=medium
+mutter (3.32.2+git20190626-1ubuntu1~19.04.1) disco; urgency=medium
 
   * No-change backport from eoan to disco for SRU.
 
- -- Iain Lane <iain.lane@canonical.com>  Thu, 27 Jun 2019 16:28:08 +0100
+ -- Iain Lane <iain.lane@canonical.com>  Thu, 27 Jun 2019 16:38:59 +0100
 
 mutter (3.32.2+git20190626-1ubuntu1) eoan; urgency=medium
 
