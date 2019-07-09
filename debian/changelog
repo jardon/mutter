@@ -1,4 +1,4 @@
-mutter (3.28.4-0ubuntu18.04.2) UNRELEASED; urgency=medium
+mutter (3.28.4-0ubuntu18.04.2) bionic; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
   * d/p/screen-Destroy-window-actors-after-windows-while-unmanagi.patch,
@@ -29,7 +29,7 @@ mutter (3.28.4-0ubuntu18.04.2) UNRELEASED; urgency=medium
     revision, so they should cause dependencies on the full version - but we
     add a tilde in case of backports.
 
- -- Iain Lane <iain.lane@canonical.com>  Tue, 09 Jul 2019 17:02:53 +0100
+ -- Iain Lane <iain.lane@canonical.com>  Tue, 09 Jul 2019 17:03:10 +0100
 
 mutter (3.28.4-0ubuntu18.04.1) bionic; urgency=medium
 
