@@ -1,8 +1,8 @@
-mutter (3.32.2+git20190711-1ubuntu1~19.04.1) UNRELEASED; urgency=medium
+mutter (3.32.2+git20190711-1ubuntu1~19.04.1) disco; urgency=medium
 
   * No-change backport from eoan to disco.
 
- -- Iain Lane <iain.lane@canonical.com>  Fri, 12 Jul 2019 14:36:40 +0100
+ -- Iain Lane <iain.lane@canonical.com>  Fri, 12 Jul 2019 14:36:59 +0100
 
 mutter (3.32.2+git20190711-1ubuntu1) eoan; urgency=medium
 
