@@ -20,6 +20,7 @@ mutter (3.28.4-0ubuntu18.04.2) bionic; urgency=medium
     d/p/window-x11-Don-t-double-check-for-unmanaging-windows.patch,
     d/p/window-x11-Focus-the-default-window-with-delay-while-wait.patch,
     d/p/window-x11-Use-any-focusable-window-as-fallback-delayed-f.patch,
+    d/p/window-x11-Focus-a-window-in-the-active-workspace-as-take.patch,
     d/p/workspace-Focus-only-ancestors-that-are-focusable.patch:
     - Workspace: Take-Input windows focus fixes (LP: #1791574)
   * debian/libmutter-2-0.symbols: Update with new symbols
