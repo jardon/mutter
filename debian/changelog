@@ -1,3 +1,24 @@
+mutter (3.32.2+git20190711-2ubuntu1) eoan; urgency=medium
+
+  * Merge with debian. Remaining changes:
+    + debian/control:
+      - Update VCS flags to point to launchpad
+      - Update maintainer to ubuntu
+    + debian/gbp.conf: update branch to point to ubuntu/master
+    + debian/patches/x11-Add-support-for-fractional-scaling-using-Randr.patch:
+      - X11: Add support for fractional scaling using Randr
+
+ -- Iain Lane <iain.lane@canonical.com>  Fri, 19 Jul 2019 16:59:08 +0100
+
+mutter (3.32.2+git20190711-2) experimental; urgency=medium
+
+  * d/p/window-x11-Focus-a-window-in-the-active-workspace-as-take.patch:
+    - Fix possible crash on closing Java dialogs (Related to LP: #1834583)
+    d/p/metatest-Dispatch-the-destruction-instead-of-sleeping-aft.patch:
+    - Tests: don't wait too much after window destruction, causing failures
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 19 Jul 2019 16:55:02 +0100
+
 mutter (3.32.2+git20190711-1ubuntu1~19.04.1) disco; urgency=medium
 
   * No-change backport from eoan to disco.
