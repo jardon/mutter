@@ -19,12 +19,6 @@ mutter (3.32.2+git20190711-2) experimental; urgency=medium
 
  -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 19 Jul 2019 16:55:02 +0100
 
-mutter (3.32.2+git20190711-1ubuntu1~19.04.1) disco; urgency=medium
-
-  * No-change backport from eoan to disco.
-
- -- Iain Lane <iain.lane@canonical.com>  Fri, 12 Jul 2019 14:36:59 +0100
-
 mutter (3.32.2+git20190711-1ubuntu1) eoan; urgency=medium
 
   * Merge with debian. Remaining changes:
