@@ -1,3 +1,9 @@
+mutter (3.30.2-9~deb10u1) UNRELEASED; urgency=medium
+
+  * d/gbp.conf: Set packaging branch to debian/buster
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 18 Aug 2019 19:49:41 +0100
+
 mutter (3.30.2-9) unstable; urgency=medium
 
   * Team upload
