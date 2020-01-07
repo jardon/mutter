@@ -1,3 +1,9 @@
+mutter (3.34.3-1ubuntu1~19.10.1) UNRELEASED; urgency=medium
+
+  * Backport to eoan (LP: #1858683)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 07 Jan 2020 20:12:12 +0100
+
 mutter (3.34.3-1ubuntu1) focal; urgency=medium
 
   * Merge with debian. Remaining changes:
