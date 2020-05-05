@@ -1,4 +1,4 @@
-mutter (3.28.4+git20200505-0ubuntu18.04.1) UNRELEASED; urgency=medium
+mutter (3.28.4+git20200505-0ubuntu18.04.1) bionic; urgency=medium
 
   * New upstream git snapsnot
     - monitor-manager: use MonitorsConfig to track switch_config
@@ -30,7 +30,7 @@ mutter (3.28.4+git20200505-0ubuntu18.04.1) UNRELEASED; urgency=medium
     d/p/workspace-Focus-only-ancestors-that-are-focusable.patch:
     - Dropped, included in the git snapshot already
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 05 May 2020 18:33:32 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 05 May 2020 21:50:40 +0200
 
 mutter (3.28.4-0ubuntu18.04.2) bionic; urgency=medium
 
