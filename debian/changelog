@@ -1,9 +1,10 @@
 mutter (3.36.3-2) UNRELEASED; urgency=medium
 
-  * debian/control.in: Depends on libpipewire-0.3-dev
+  * debian/control.in: Depends on libpipewire-0.3-dev and pipewire >= 0.3 for
+    remote desktop functionality
   * debian/rules: Re-enable remote desktop
 
- -- Sjoerd Simons <sjoerd@debian.org>  Thu, 11 Jun 2020 21:27:38 +0200
+ -- Sjoerd Simons <sjoerd@debian.org>  Thu, 11 Jun 2020 21:56:49 +0200
 
 mutter (3.36.3-1) unstable; urgency=medium
 
