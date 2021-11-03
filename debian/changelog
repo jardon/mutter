@@ -1,3 +1,13 @@
+mutter (3.38.4-1ubuntu2.21.04.01) UNRELEASED; urgency=medium
+
+  [ Yuan-Chen Cheng ]
+  * d/p/mutter-wayland-seat-race-fix.patch:
+    - Fix Xwayland crash Xwayland crash in gdm as screen off and touchscreen
+      detach (cherry picked commits — LP: #1948894)
+    - backported one chunk of above patch.
+
+ --  Yuan-Chen Cheng <yc.cheng@canonical.com>  Mon, 01 Nov 2021 06:41:58 +0000
+
 mutter (3.38.4-1ubuntu2) hirsute; urgency=medium
 
   [ Daniel van Vugt ]
