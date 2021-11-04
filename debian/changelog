@@ -1,4 +1,4 @@
-mutter (3.38.4-1ubuntu2.21.04.01) UNRELEASED; urgency=medium
+mutter (3.38.4-1ubuntu2.21.04.01) hirsute; urgency=medium
 
   [ Yuan-Chen Cheng ]
   * d/p/mutter-wayland-seat-race-fix.patch:
@@ -9,7 +9,7 @@ mutter (3.38.4-1ubuntu2.21.04.01) UNRELEASED; urgency=medium
   [ Marco Trevisan (Treviño) ]
   * debian: Update VCS references for hirsute branching
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 04 Nov 2021 15:39:43 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 04 Nov 2021 16:15:12 +0100
 
 mutter (3.38.4-1ubuntu2) hirsute; urgency=medium
 
