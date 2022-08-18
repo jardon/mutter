@@ -1,4 +1,5 @@
 tests-Give-mutter-test-runner-the-RUNPATH-to-find-Clutter.patch
+backend-native-Don-t-warn-on-EACCES-if-headless.patch
 theme-use-gtk_render_icon_suface-to-paint-button-icon.patch
 theme-load-icons-as-Gtk-does-with-fallback-and-RTL-suppor.patch
 meson-add-back-default_driver-option.patch
