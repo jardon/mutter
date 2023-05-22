@@ -7,7 +7,7 @@ Section: x11
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Jeremy Bicha <jbicha@ubuntu.com>
+Uploaders: Jeremy Bicha <jbicha@ubuntu.com>, Marco Trevisan (Treviño) <marco@ubuntu.com>
 Build-Depends: debhelper-compat (= 13),
                dh-exec,
                dh-sequence-gir,
@@ -89,8 +89,8 @@ Rules-Requires-Root: no
 Standards-Version: 4.6.2
 XS-Debian-Vcs-Git: https://salsa.debian.org/gnome-team/mutter.git -b debian/unstable
 XS-Debian-Vcs-Browser: https://salsa.debian.org/gnome-team/mutter
-Vcs-Git: https://salsa.debian.org/gnome-team/mutter.git -b ubuntu/master
-Vcs-Browser: https://salsa.debian.org/gnome-team/mutter/tree/ubuntu/master
+Vcs-Git: https://salsa.debian.org/gnome-team/mutter.git -b ubuntu/lunar
+Vcs-Browser: https://salsa.debian.org/gnome-team/mutter/tree/ubuntu/lunar
 
 Package: mutter
 Architecture: linux-any
