@@ -57,9 +57,10 @@ struct _MetaWindowDrag {
 
   ClutterInputDevice *leading_device;
   ClutterEventSequence *leading_touch_sequence;
+  double anchor_rel_x;
+  double anchor_rel_y;
   int anchor_root_x;
   int anchor_root_y;
-  MetaRectangle anchor_window_pos;
   MetaTileMode tile_mode;
   int tile_monitor_number;
   int latest_motion_x;
@@ -411,14 +412,6 @@ on_grab_window_unmanaging (MetaWindow     *window,
   meta_window_drag_end (window_drag);
 }
 
-static void
-on_grab_window_size_changed (MetaWindow     *window,
-                             MetaWindowDrag *window_drag)
-{
-  meta_window_get_frame_rect (window,
-                              &window_drag->anchor_window_pos);
-}
-
 static MetaWindow *
 get_first_freefloating_window (MetaWindow *window)
 {
@@ -489,8 +482,6 @@ warp_grab_pointer (MetaWindowDrag *window_drag,
   window_drag->anchor_root_y = *y;
   window_drag->latest_motion_x = *x;
   window_drag->latest_motion_y = *y;
-  meta_window_get_frame_rect (window,
-                              &window_drag->anchor_window_pos);
 
   seat = clutter_backend_get_default_seat (clutter_get_default_backend ());
   clutter_seat_warp_pointer (seat, *x, *y);
@@ -1097,8 +1088,8 @@ process_key_event (MetaWindowDrag  *window_drag,
 
   if (window_drag->grab_op & META_GRAB_OP_WINDOW_FLAG_KEYBOARD)
     {
-      if ((window_drag->grab_op & META_GRAB_OP_KEYBOARD_MOVING) ==
-          META_GRAB_OP_KEYBOARD_MOVING)
+      if ((window_drag->grab_op & (META_GRAB_OP_WINDOW_DIR_MASK |
+                                   META_GRAB_OP_WINDOW_FLAG_UNKNOWN)) == 0)
         {
           meta_topic (META_DEBUG_KEYBINDINGS,
                       "Processing event for keyboard move");
@@ -1188,7 +1179,7 @@ update_move (MetaWindowDrag          *window_drag,
   MetaWindow *window;
   int dx, dy;
   int new_x, new_y;
-  MetaRectangle old;
+  MetaRectangle old, frame_rect;
   int shake_threshold;
 
   window = window_drag->effective_grab_window;
@@ -1203,15 +1194,16 @@ update_move (MetaWindowDrag          *window_drag,
   dx = x - window_drag->anchor_root_x;
   dy = y - window_drag->anchor_root_y;
 
-  new_x = window_drag->anchor_window_pos.x + dx;
-  new_y = window_drag->anchor_window_pos.y + dy;
+  meta_window_get_frame_rect (window, &frame_rect);
+  new_x = x - (frame_rect.width * window_drag->anchor_rel_x);
+  new_y = y - (frame_rect.height * window_drag->anchor_rel_y);
 
-  meta_verbose ("x,y = %d,%d anchor ptr %d,%d anchor pos %d,%d dx,dy %d,%d",
+  meta_verbose ("x,y = %d,%d anchor ptr %d,%d rel anchor pos %f,%f dx,dy %d,%d",
                 x, y,
                 window_drag->anchor_root_x,
                 window_drag->anchor_root_y,
-                window_drag->anchor_window_pos.x,
-                window_drag->anchor_window_pos.y,
+                window_drag->anchor_rel_x,
+                window_drag->anchor_rel_y,
                 dx, dy);
 
   /* Don't bother doing anything if no move has been specified.  (This
@@ -1451,8 +1443,8 @@ update_resize (MetaWindowDrag          *window_drag,
       dy *= 2;
     }
 
-  new_rect.width = window_drag->anchor_window_pos.width;
-  new_rect.height = window_drag->anchor_window_pos.height;
+  new_rect.width = window_drag->initial_window_pos.width;
+  new_rect.height = window_drag->initial_window_pos.height;
 
   /* Don't bother doing anything if no move has been specified.  (This
    * happens often, even in keyboard resizing, due to the warping of the
@@ -1850,13 +1842,6 @@ meta_window_drag_begin (MetaWindowDrag       *window_drag,
     g_signal_connect (grab_window, "unmanaging",
                       G_CALLBACK (on_grab_window_unmanaging), window_drag);
 
-  if (meta_grab_op_is_moving (grab_op))
-    {
-      window_drag->size_changed_id =
-        g_signal_connect (grab_window, "size-changed",
-                          G_CALLBACK (on_grab_window_size_changed), window_drag);
-    }
-
   window_drag->leading_device = device;
   window_drag->leading_touch_sequence = sequence;
   window_drag->tile_mode = grab_window->tile_mode;
@@ -1877,7 +1862,15 @@ meta_window_drag_begin (MetaWindowDrag       *window_drag,
 
   meta_window_get_frame_rect (window_drag->effective_grab_window,
                               &window_drag->initial_window_pos);
-  window_drag->anchor_window_pos = window_drag->initial_window_pos;
+
+  window_drag->anchor_rel_x =
+    CLAMP ((double) (root_x - window_drag->initial_window_pos.x) /
+           window_drag->initial_window_pos.width,
+           0, 1);
+  window_drag->anchor_rel_y =
+    CLAMP ((double) (root_y - window_drag->initial_window_pos.y) /
+           window_drag->initial_window_pos.height,
+           0, 1);
 
   if (meta_is_wayland_compositor ())
     {

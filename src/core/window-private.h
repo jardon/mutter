@@ -669,6 +669,9 @@ void        meta_window_resize_frame_with_gravity (MetaWindow  *window,
                                                    int          h,
                                                    MetaGravity  gravity);
 
+gboolean    meta_window_should_be_showing_on_workspace (MetaWindow    *window,
+                                                        MetaWorkspace *workspace);
+
 /* Return whether the window should be currently mapped */
 gboolean    meta_window_should_be_showing   (MetaWindow  *window);
 
@@ -849,8 +852,6 @@ gboolean meta_window_get_alive (MetaWindow *window);
 void meta_window_show_close_dialog (MetaWindow *window);
 void meta_window_hide_close_dialog (MetaWindow *window);
 void meta_window_ensure_close_dialog_timeout (MetaWindow *window);
-
-gboolean meta_window_has_pointer (MetaWindow *window);
 
 void meta_window_emit_size_changed (MetaWindow *window);
 

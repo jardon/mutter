@@ -613,14 +613,17 @@ static char *
 generate_mode_id (MetaMonitorModeSpec *monitor_mode_spec)
 {
   gboolean is_interlaced;
+  char rate_str[G_ASCII_DTOSTR_BUF_SIZE];
 
   is_interlaced = !!(monitor_mode_spec->flags & META_CRTC_MODE_FLAG_INTERLACE);
+  g_ascii_formatd (rate_str, sizeof (rate_str),
+                   "%.3f", monitor_mode_spec->refresh_rate);
 
-  return g_strdup_printf ("%dx%d%s@%.3f",
+  return g_strdup_printf ("%dx%d%s@%s",
                           monitor_mode_spec->width,
                           monitor_mode_spec->height,
                           is_interlaced ? "i" : "",
-                          monitor_mode_spec->refresh_rate);
+                          rate_str);
 }
 
 static gboolean
@@ -2300,5 +2303,52 @@ meta_monitor_set_hdr_metadata (MetaMonitor            *monitor,
       meta_output_set_hdr_metadata (output, metadata);
     }
 
+  return TRUE;
+}
+
+gboolean
+meta_parse_monitor_mode (const char *string,
+                         int        *out_width,
+                         int        *out_height,
+                         float      *out_refresh_rate,
+                         float       fallback_refresh_rate)
+{
+  char *ptr = (char *) string;
+  int width, height;
+  float refresh_rate;
+
+  width = g_ascii_strtoull (ptr, &ptr, 10);
+  if (width == 0)
+    return FALSE;
+
+  if (ptr[0] != 'x')
+    return FALSE;
+  ptr++;
+
+  height = g_ascii_strtoull (ptr, &ptr, 10);
+  if (height == 0)
+    return FALSE;
+
+  if (ptr[0] == '\0')
+    {
+      refresh_rate = fallback_refresh_rate;
+      goto out;
+    }
+
+  if (ptr[0] != '@')
+    return FALSE;
+  ptr++;
+
+  refresh_rate = g_ascii_strtod (ptr, &ptr);
+  if (refresh_rate == 0.0)
+    return FALSE;
+
+  if (ptr[0] != '\0')
+    return FALSE;
+
+out:
+  *out_width = width;
+  *out_height = height;
+  *out_refresh_rate = refresh_rate;
   return TRUE;
 }

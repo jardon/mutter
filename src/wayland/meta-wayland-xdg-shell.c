@@ -642,6 +642,9 @@ xdg_popup_reposition (struct wl_client   *client,
   MetaWaylandXdgPositioner *xdg_positioner;
   MetaWaylandTransaction *transaction;
 
+  if (!meta_wayland_surface_get_window (surface))
+    return;
+
   xdg_positioner = g_memdup2 (wl_resource_get_user_data (positioner_resource),
                               sizeof (MetaWaylandXdgPositioner));
 
@@ -1192,7 +1195,7 @@ dismiss_invalid_popup (MetaWaylandXdgPopup *xdg_popup)
           top_xdg_popup = meta_wayland_xdg_popup_from_surface (top_popup_surface);
 
           xdg_popup_send_popup_done (top_xdg_popup->resource);
-          meta_wayland_popup_destroy (top_xdg_popup->popup);
+          meta_wayland_popup_dismiss (top_xdg_popup->popup);
 
           if (top_xdg_popup == xdg_popup)
             break;
@@ -1235,6 +1238,12 @@ meta_wayland_xdg_popup_apply_state (MetaWaylandSurfaceRole  *surface_role,
 
   if (xdg_popup->setup.parent_surface)
     finish_popup_setup (xdg_popup);
+
+  if (!meta_wayland_surface_get_window (surface))
+    {
+      meta_wayland_actor_surface_queue_frame_callbacks (actor_surface, pending);
+      return;
+    }
 
   if (pending->xdg_positioner)
     {
@@ -1357,6 +1366,9 @@ meta_wayland_xdg_popup_configure (MetaWaylandShellSurface        *shell_surface,
     meta_wayland_surface_get_window (xdg_popup->parent_surface);
   int geometry_scale;
   int x, y;
+
+  if (!xdg_popup->resource)
+    return;
 
   /* If the parent surface was destroyed, its window will be destroyed
    * before the popup receives the parent-destroy signal. This means that

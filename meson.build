@@ -1,5 +1,5 @@
 project('mutter', 'c',
-  version: '44.0',
+  version: '44.1',
   meson_version: '>= 0.58.0',
   license: 'GPLv2+'
 )
@@ -212,6 +212,7 @@ endif
 if have_wayland
   wayland_server_dep = dependency('wayland-server', version: wayland_server_req)
   wayland_client_dep = dependency('wayland-client', version: wayland_server_req)
+  wayland_cursor_dep = dependency('wayland-cursor')
   wayland_protocols_dep = dependency('wayland-protocols',
                                      version: wayland_protocols_req)
   wayland_egl_dep = dependency('wayland-egl')

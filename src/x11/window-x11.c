@@ -126,7 +126,7 @@ send_icccm_message (MetaWindow *window,
    *     data[1]		time stamp
    */
 
-  XClientMessageEvent ev;
+  XClientMessageEvent ev = { 0 };
   MetaX11Display *x11_display = window->display->x11_display;
 
   ev.type = ClientMessage;
@@ -235,7 +235,7 @@ send_configure_notify (MetaWindow *window)
   MetaX11Display *x11_display = window->display->x11_display;
   MetaWindowX11 *window_x11 = META_WINDOW_X11 (window);
   MetaWindowX11Private *priv = meta_window_x11_get_instance_private (window_x11);
-  XEvent event;
+  XEvent event = { 0 };
 
   g_assert (!window->override_redirect);
 
@@ -706,7 +706,7 @@ meta_window_x11_unmanage (MetaWindow *window)
     XShapeSelectInput (x11_display->xdisplay, window->xwindow, NoEventMask);
 
   meta_window_ungrab_keys (window);
-  meta_display_ungrab_window_buttons (window->display, window->xwindow);
+  meta_display_ungrab_window_buttons (window->display, window);
   meta_display_ungrab_focus_window_button (window->display, window);
 
   meta_x11_error_trap_pop (x11_display);
@@ -3861,7 +3861,7 @@ meta_window_x11_new (MetaDisplay       *display,
   meta_window_grab_keys (window);
   if (window->type != META_WINDOW_DOCK && !window->override_redirect)
     {
-      meta_display_grab_window_buttons (window->display, window->xwindow);
+      meta_display_grab_window_buttons (window->display, window);
       meta_display_grab_focus_window_button (window->display, window);
     }
 

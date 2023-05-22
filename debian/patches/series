@@ -1,5 +1,3 @@
-frames-window-tracker-Select-StructureNotifyMask-X11-even.patch
-tests-Use-a-more-interoperable-path-to-bash.patch
 meson-add-back-default_driver-option.patch
 tests-Mark-view-verification-tests-as-incomplete-in-big-e.patch
 debian/meson-Do-not-mark-CI-test-tools-as-required.patch
@@ -9,10 +7,9 @@ debian/tests-Tag-unstable-tests-as-flaky.patch
 debian/wayland-data-device-Allow-any-drag-timestamp-as-drag-star.patch
 debian/Support-Dynamic-triple-double-buffering.patch
 debian/tests-Disable-restore-size-test.patch
-ubuntu/x11-Add-support-for-fractional-scaling-using-Randr.patch
 workspace-Don-t-crash-on-invalid-argument-to-meta_workspa.patch
 debian/Mark-xwayland-test-case-as-known-to-be-flaky-on-32-bit-AR.patch
 cursor-renderer-native-Workaround-broken-arm64-drivers.patch
-ubuntu/window-Add-ability-to-override-the-edge-constraints.patch
-backends-x11-Trap-errors-from-XIChangeProperty.patch
 display-Set-compositor-selection-earlier-on-XWayland.patch
+ubuntu/x11-Add-support-for-fractional-scaling-using-Randr.patch
+ubuntu/window-Add-ability-to-override-the-edge-constraints.patch

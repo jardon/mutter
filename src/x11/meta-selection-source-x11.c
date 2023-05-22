@@ -21,6 +21,7 @@
 
 #include "config.h"
 
+#include "meta/meta-x11-errors.h"
 #include "x11/meta-x11-selection-input-stream-private.h"
 #include "x11/meta-selection-source-x11-private.h"
 
@@ -47,7 +48,7 @@ stream_new_cb (GObject      *source,
   GInputStream *stream;
   GError *error = NULL;
 
-  stream = meta_x11_selection_input_stream_new_finish (res, NULL, NULL, &error);
+  stream = meta_x11_selection_input_stream_new_finish (res, &error);
 
   if (stream)
     g_task_return_pointer (task, stream, g_object_unref);
@@ -75,7 +76,6 @@ meta_selection_source_x11_read_async (MetaSelectionSource *source,
                                       gpointer             user_data)
 {
   MetaSelectionSourceX11 *source_x11 = META_SELECTION_SOURCE_X11 (source);
-  Display *xdisplay = meta_x11_display_get_xdisplay (source_x11->x11_display);
   GTask *task;
 
   task = g_task_new (source, cancellable, callback, user_data);
@@ -91,7 +91,7 @@ meta_selection_source_x11_read_async (MetaSelectionSource *source,
     mimetype = "UTF8_STRING";
 
   meta_x11_selection_input_stream_new_async (source_x11->x11_display,
-                                             XGetAtomName (xdisplay, source_x11->xselection),
+                                             source_x11->xselection,
                                              mimetype,
                                              source_x11->timestamp,
                                              G_PRIORITY_DEFAULT,
@@ -155,15 +155,23 @@ atoms_to_mimetypes (MetaX11Display *display,
 
   for (i = 0; i < n_atoms; i++)
     {
-      const gchar *mimetype;
+      char *mimetype;
 
+      meta_x11_error_trap_push (display);
       mimetype = XGetAtomName (xdisplay, atoms[i]);
+      meta_x11_error_trap_pop (display);
+
+      if (!mimetype)
+        continue;
+
       mimetypes = g_list_prepend (mimetypes, g_strdup (mimetype));
 
       utf8_text_plain_found |= strcmp (mimetype, "text/plain;charset=utf-8") == 0;
       text_plain_found |= strcmp (mimetype, "text/plain") == 0;
       utf8_string_found |= strcmp (mimetype, "UTF8_STRING") == 0;
       string_found |= strcmp (mimetype, "STRING") == 0;
+
+      XFree (mimetype);
     }
 
   /* Ensure non-x11 clients get well-known mimetypes */
@@ -211,7 +219,7 @@ get_mimetypes_cb (GObject      *source,
   GInputStream *stream;
   GError *error = NULL;
 
-  stream = meta_x11_selection_input_stream_new_finish (res, NULL, NULL, &error);
+  stream = meta_x11_selection_input_stream_new_finish (res, &error);
   if (error)
     {
       g_task_return_error (task, error);
@@ -236,7 +244,6 @@ meta_selection_source_x11_new_async (MetaX11Display      *x11_display,
                                      GAsyncReadyCallback  callback,
                                      gpointer             user_data)
 {
-  Display *xdisplay = meta_x11_display_get_xdisplay (x11_display);
   MetaSelectionSourceX11 *source;
   GTask *task;
 
@@ -251,7 +258,7 @@ meta_selection_source_x11_new_async (MetaX11Display      *x11_display,
   g_task_set_task_data (task, source, g_object_unref);
 
   meta_x11_selection_input_stream_new_async (x11_display,
-                                             XGetAtomName (xdisplay, xselection),
+                                             xselection,
                                              "TARGETS",
                                              timestamp,
                                              G_PRIORITY_DEFAULT,

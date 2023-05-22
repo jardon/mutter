@@ -1691,15 +1691,14 @@ meta_window_showing_on_its_workspace (MetaWindow *window)
 }
 
 gboolean
-meta_window_should_be_showing (MetaWindow  *window)
+meta_window_should_be_showing_on_workspace (MetaWindow    *window,
+                                            MetaWorkspace *workspace)
 {
-  MetaWorkspaceManager *workspace_manager = window->display->workspace_manager;
-
 #ifdef HAVE_WAYLAND
-  if (window->client_type == META_WINDOW_CLIENT_TYPE_WAYLAND)
+  if (meta_is_wayland_compositor ())
     {
       MetaWaylandSurface *surface = meta_window_get_wayland_surface (window);
-      if (!meta_wayland_surface_get_buffer (surface))
+      if (!surface || !meta_wayland_surface_get_buffer (surface))
         return FALSE;
     }
 #endif
@@ -1709,9 +1708,18 @@ meta_window_should_be_showing (MetaWindow  *window)
     return FALSE;
 
   /* Windows should be showing if they're located on the
-   * active workspace and they're showing on their own workspace. */
-  return (meta_window_located_on_workspace (window, workspace_manager->active_workspace) &&
+   * workspace and they're showing on their own workspace. */
+  return (meta_window_located_on_workspace (window, workspace) &&
           meta_window_showing_on_its_workspace (window));
+}
+
+gboolean
+meta_window_should_be_showing (MetaWindow *window)
+{
+  MetaWorkspaceManager *workspace_manager = window->display->workspace_manager;
+  MetaWorkspace *active_workspace = workspace_manager->active_workspace;
+
+  return meta_window_should_be_showing_on_workspace (window, active_workspace);
 }
 
 static void
@@ -5194,7 +5202,7 @@ meta_window_set_focused_internal (MetaWindow *window,
           meta_display_ungrab_focus_window_button (window->display, window);
           /* Since we ungrab with XIAnyModifier above, all button
              grabs go way so we need to re-grab the window buttons. */
-          meta_display_grab_window_buttons (window->display, window->xwindow);
+          meta_display_grab_window_buttons (window->display, window);
         }
 
       g_signal_emit (window, window_signals[FOCUS], 0);

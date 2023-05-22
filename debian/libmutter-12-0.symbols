@@ -18,6 +18,7 @@ libmutter-12.so.0 libmutter-12-0 #MINVER#
  meta_backend_get_context@Base 43.0
  meta_backend_get_core_idle_monitor@Base 43.0
  meta_backend_get_current_logical_monitor@Base 43.0
+ meta_backend_get_cursor_renderer@Base 44.1
  meta_backend_get_cursor_tracker@Base 43.0
  meta_backend_get_default_seat@Base 43.0
  meta_backend_get_dnd@Base 43.0
@@ -144,6 +145,8 @@ libmutter-12.so.0 libmutter-12-0 #MINVER#
  meta_crtc_unassign_output@Base 43.0
  meta_crtc_unset_config@Base 43.0
  meta_cursor_get_type@Base 43.0
+ meta_cursor_renderer_get_cursor@Base 44.1
+ meta_cursor_sprite_wayland_get_type@Base 44.1
  meta_cursor_tracker_get_for_display@Base 43.0
  meta_cursor_tracker_get_hot@Base 43.0
  meta_cursor_tracker_get_pointer@Base 43.0
@@ -227,6 +230,7 @@ libmutter-12.so.0 libmutter-12-0 #MINVER#
  meta_frame_flags_get_type@Base 43.0
  meta_frame_native_ensure_kms_update@Base 44~rc
  meta_frame_native_from_frame@Base 44~rc
+ meta_frame_native_had_kms_update@Base 44.1
  meta_frame_native_has_kms_update@Base 44~rc
  meta_frame_type_get_type@Base 43.0
  meta_frame_type_to_string@Base 43.0
@@ -490,6 +494,7 @@ libmutter-12.so.0 libmutter-12-0 #MINVER#
  meta_output_is_underscanning@Base 43.0
  meta_output_unassign_crtc@Base 43.0
  meta_pad_action_type_get_type@Base 43.0
+ meta_parse_monitor_mode@Base 44.1
  meta_plugin_complete_display_change@Base 43.0
  meta_plugin_destroy_completed@Base 43.0
  meta_plugin_get_display@Base 43.0
@@ -788,6 +793,7 @@ libmutter-12.so.0 libmutter-12-0 #MINVER#
  meta_window_group_leader_changed@Base 43.0
  meta_window_has_attached_dialogs@Base 43.0
  meta_window_has_focus@Base 43.0
+ meta_window_has_pointer@Base 44.1
  meta_window_is_above@Base 43.0
  meta_window_is_always_on_all_workspaces@Base 43.0
  meta_window_is_ancestor_of_transient@Base 43.0
@@ -1474,6 +1480,7 @@ libmutter-clutter-12.so.0 libmutter-12-0 #MINVER#
  clutter_frame_clock_uninhibit@Base 43.0
  clutter_frame_get_count@Base 44~beta
  clutter_frame_get_hints@Base 43.0
+ clutter_frame_get_min_render_time_allowed@Base 44.1
  clutter_frame_get_target_presentation_time@Base 44~beta
  clutter_frame_get_type@Base 44~beta
  clutter_frame_has_result@Base 43.0
@@ -1687,6 +1694,7 @@ libmutter-clutter-12.so.0 libmutter-12-0 #MINVER#
  clutter_page_turn_effect_set_period@Base 43.0
  clutter_page_turn_effect_set_radius@Base 43.0
  clutter_paint_context_destroy@Base 43.0
+ clutter_paint_context_get_frame@Base 44.1
  clutter_paint_context_get_framebuffer@Base 43.0
  clutter_paint_context_get_paint_flags@Base 43.0
  clutter_paint_context_get_redraw_clip@Base 43.0
