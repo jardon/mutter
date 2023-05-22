@@ -1,4 +1,4 @@
-mutter (44.1-0ubuntu1) UNRELEASED; urgency=medium
+mutter (44.1-0ubuntu1) lunar; urgency=medium
 
   [ Jeremy Bícha ]
   * New upstream release (LP: #2020225, LP: #2012717, LP: #2013216,
