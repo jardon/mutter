@@ -20,7 +20,7 @@ And then git commit but using all this as the header instead of what
 git suggests. Also add Gbp-Pq: Topic debian
 
 Origin: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1441
-Last-Update: 2023-05-19
+Last-Update: 2023-06-05
 ---
  clutter/clutter/clutter-frame-clock.c             | 230 ++++++++++++---
  clutter/clutter/clutter-frame-clock.h             |  11 +-
@@ -41,15 +41,15 @@ Last-Update: 2023-05-19
  src/backends/native/meta-kms-update.c             |   3 +-
  src/backends/native/meta-kms.c                    |   9 +
  src/backends/native/meta-kms.h                    |   2 +
- src/backends/native/meta-onscreen-native.c        | 328 +++++++++++++++++-----
+ src/backends/native/meta-onscreen-native.c        | 338 +++++++++++++++++-----
  src/backends/native/meta-onscreen-native.h        |   2 +
  src/backends/native/meta-renderer-native.c        |  34 ++-
  src/backends/native/meta-swap-chain.c             | 149 ++++++++++
- src/backends/native/meta-swap-chain.h             |  48 ++++
+ src/backends/native/meta-swap-chain.h             |  48 +++
  src/meson.build                                   |   2 +
  src/tests/clutter/conform/event-delivery.c        |   1 +
  src/tests/native-kms-render.c                     | 107 +++++--
- 27 files changed, 911 insertions(+), 280 deletions(-)
+ 27 files changed, 919 insertions(+), 282 deletions(-)
  create mode 100644 src/backends/native/meta-swap-chain.c
  create mode 100644 src/backends/native/meta-swap-chain.h
 
@@ -641,7 +641,7 @@ index db94c7e..aed2296 100644
                                          stage_view,
                                          scanout,
 diff --git a/src/backends/native/meta-cursor-renderer-native.c b/src/backends/native/meta-cursor-renderer-native.c
-index e524766..b05e228 100644
+index f1b7459..8080098 100644
 --- a/src/backends/native/meta-cursor-renderer-native.c
 +++ b/src/backends/native/meta-cursor-renderer-native.c
 @@ -59,19 +59,6 @@
@@ -816,7 +816,7 @@ index e524766..b05e228 100644
  }
  
  static void
-@@ -1427,35 +1347,7 @@ load_cursor_sprite_gbm_buffer_for_gpu (MetaCursorRendererNative *native,
+@@ -1423,35 +1343,7 @@ load_cursor_sprite_gbm_buffer_for_gpu (MetaCursorRendererNative *native,
        return;
      }
  
@@ -853,7 +853,7 @@ index e524766..b05e228 100644
  }
  
  static gboolean
-@@ -1642,7 +1534,7 @@ realize_cursor_sprite_from_wl_buffer_for_gpu (MetaCursorRenderer      *renderer,
+@@ -1638,7 +1530,7 @@ realize_cursor_sprite_from_wl_buffer_for_gpu (MetaCursorRenderer      *renderer,
    if (!cursor_renderer_gpu_data || cursor_renderer_gpu_data->hw_cursor_broken)
      return;
  
@@ -862,7 +862,7 @@ index e524766..b05e228 100644
        is_cursor_scale_and_transform_valid (renderer, cursor_sprite))
      return;
  
-@@ -1787,8 +1679,8 @@ realize_cursor_sprite_from_wl_buffer_for_gpu (MetaCursorRenderer      *renderer,
+@@ -1783,8 +1675,8 @@ realize_cursor_sprite_from_wl_buffer_for_gpu (MetaCursorRenderer      *renderer,
            return;
          }
  
@@ -873,7 +873,7 @@ index e524766..b05e228 100644
      }
  }
  #endif
-@@ -1812,7 +1704,7 @@ realize_cursor_sprite_from_xcursor_for_gpu (MetaCursorRenderer      *renderer,
+@@ -1808,7 +1700,7 @@ realize_cursor_sprite_from_xcursor_for_gpu (MetaCursorRenderer      *renderer,
    if (!cursor_renderer_gpu_data || cursor_renderer_gpu_data->hw_cursor_broken)
      return;
  
@@ -1257,7 +1257,7 @@ index fe4fef1..88421ed 100644
                          MetaKmsFlags   flags,
                          GError       **error);
 diff --git a/src/backends/native/meta-onscreen-native.c b/src/backends/native/meta-onscreen-native.c
-index 1ab117e..1c157ec 100644
+index 1ab117e..a9765ed 100644
 --- a/src/backends/native/meta-onscreen-native.c
 +++ b/src/backends/native/meta-onscreen-native.c
 @@ -72,7 +72,7 @@ typedef struct _MetaOnscreenNativeSecondaryGpuState
@@ -1308,7 +1308,7 @@ index 1ab117e..1c157ec 100644
 -                          CoglOnscreen        *onscreen,
 -                          GError             **error);
 -
--static void
+ static void
 -free_current_bo (CoglOnscreen *onscreen)
 -{
 -  MetaOnscreenNative *onscreen_native = META_ONSCREEN_NATIVE (onscreen);
@@ -1316,7 +1316,7 @@ index 1ab117e..1c157ec 100644
 -  g_clear_object (&onscreen_native->gbm.current_fb);
 -}
 -
- static void
+-static void
 -meta_onscreen_native_swap_drm_fb (CoglOnscreen *onscreen)
 -{
 -  MetaOnscreenNative *onscreen_native = META_ONSCREEN_NATIVE (onscreen);
@@ -1487,15 +1487,26 @@ index 1ab117e..1c157ec 100644
  }
  
  static MetaDrmBuffer *
-@@ -1041,7 +1061,6 @@ on_swap_buffer_update_result (const MetaKmsFeedback *kms_feedback,
-   frame_info->flags |= COGL_FRAME_INFO_FLAG_SYMBOLIC;
+@@ -1038,10 +1058,15 @@ on_swap_buffer_update_result (const MetaKmsFeedback *kms_feedback,
+     g_warning ("Page flip failed: %s", error->message);
  
-   meta_onscreen_native_notify_frame_complete (onscreen);
+   frame_info = cogl_onscreen_peek_head_frame_info (onscreen);
+-  frame_info->flags |= COGL_FRAME_INFO_FLAG_SYMBOLIC;
+ 
+-  meta_onscreen_native_notify_frame_complete (onscreen);
 -  meta_onscreen_native_clear_next_fb (onscreen);
++  /* After resuming from suspend, drop_stalled_swap might have done this
++   * already and emptied the frame_info queue.
++   */
++  if (frame_info)
++    {
++      frame_info->flags |= COGL_FRAME_INFO_FLAG_SYMBOLIC;
++      meta_onscreen_native_notify_frame_complete (onscreen);
++    }
  }
  
  static void
-@@ -1058,31 +1077,35 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1058,31 +1083,35 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
    CoglRendererEGL *cogl_renderer_egl = cogl_renderer->winsys;
    MetaRendererNativeGpuData *renderer_gpu_data = cogl_renderer_egl->platform;
    MetaRendererNative *renderer_native = renderer_gpu_data->renderer_native;
@@ -1541,7 +1552,7 @@ index 1ab117e..1c157ec 100644
    secondary_gpu_fb =
      update_secondary_gpu_state_pre_swap_buffers (onscreen,
                                                   rectangles,
-@@ -1138,7 +1161,15 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1138,7 +1167,15 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
    switch (renderer_gpu_data->mode)
      {
      case META_RENDERER_NATIVE_MODE_GBM:
@@ -1558,7 +1569,7 @@ index 1ab117e..1c157ec 100644
        if (onscreen_native->secondary_gpu_state)
          g_set_object (&onscreen_native->gbm.next_fb, secondary_gpu_fb);
        else
-@@ -1152,6 +1183,9 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1152,6 +1189,9 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
  #endif
      }
  
@@ -1568,7 +1579,7 @@ index 1ab117e..1c157ec 100644
    /*
     * If we changed EGL context, cogl will have the wrong idea about what is
     * current, making it fail to set it when it needs to. Avoid that by making
-@@ -1161,12 +1195,82 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1161,12 +1201,82 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
    if (egl_context_changed)
      _cogl_winsys_egl_ensure_current (cogl_display);
  
@@ -1653,7 +1664,7 @@ index 1ab117e..1c157ec 100644
        kms_update = meta_frame_native_ensure_kms_update (frame_native,
                                                          kms_device);
        meta_kms_update_add_result_listener (kms_update,
-@@ -1179,15 +1283,14 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1179,15 +1289,14 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
                                        onscreen_native->crtc,
                                        kms_update,
                                        META_KMS_PAGE_FLIP_LISTENER_FLAG_NONE,
@@ -1672,7 +1683,7 @@ index 1ab117e..1c157ec 100644
        return;
      }
  
-@@ -1207,8 +1310,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1207,8 +1316,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
            kms_update = meta_frame_native_steal_kms_update (frame_native);
            meta_renderer_native_queue_mode_set_update (renderer_native,
                                                        kms_update);
@@ -1681,7 +1692,7 @@ index 1ab117e..1c157ec 100644
            return;
          }
        else if (meta_renderer_native_has_pending_mode_set (renderer_native))
-@@ -1222,8 +1323,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1222,8 +1329,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
  
            meta_frame_native_steal_kms_update (frame_native);
            meta_renderer_native_post_mode_set_updates (renderer_native);
@@ -1690,7 +1701,7 @@ index 1ab117e..1c157ec 100644
            return;
          }
        break;
-@@ -1239,8 +1338,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1239,8 +1344,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
                                                        kms_update);
  
            meta_renderer_native_post_mode_set_updates (renderer_native);
@@ -1699,7 +1710,7 @@ index 1ab117e..1c157ec 100644
            return;
          }
        break;
-@@ -1256,7 +1353,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1256,7 +1359,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
    kms_feedback =
      meta_kms_device_process_update_sync (kms_device, kms_update,
                                           META_KMS_UPDATE_FLAG_NONE);
@@ -1707,7 +1718,7 @@ index 1ab117e..1c157ec 100644
  }
  
  gboolean
-@@ -1301,6 +1397,7 @@ on_scanout_update_result (const MetaKmsFeedback *kms_feedback,
+@@ -1301,6 +1403,7 @@ on_scanout_update_result (const MetaKmsFeedback *kms_feedback,
    CoglOnscreen *onscreen = COGL_ONSCREEN (onscreen_native);
    const GError *error;
    CoglFrameInfo *frame_info;
@@ -1715,7 +1726,7 @@ index 1ab117e..1c157ec 100644
  
    error = meta_kms_feedback_get_error (kms_feedback);
    if (!error)
-@@ -1314,8 +1411,7 @@ on_scanout_update_result (const MetaKmsFeedback *kms_feedback,
+@@ -1314,8 +1417,7 @@ on_scanout_update_result (const MetaKmsFeedback *kms_feedback,
  
        g_warning ("Direct scanout page flip failed: %s", error->message);
  
@@ -1725,7 +1736,7 @@ index 1ab117e..1c157ec 100644
        clutter_stage_view_add_redraw_clip (view, NULL);
        clutter_stage_view_schedule_update_now (view);
      }
-@@ -1324,7 +1420,6 @@ on_scanout_update_result (const MetaKmsFeedback *kms_feedback,
+@@ -1324,7 +1426,6 @@ on_scanout_update_result (const MetaKmsFeedback *kms_feedback,
    frame_info->flags |= COGL_FRAME_INFO_FLAG_SYMBOLIC;
  
    meta_onscreen_native_notify_frame_complete (onscreen);
@@ -1733,7 +1744,7 @@ index 1ab117e..1c157ec 100644
  }
  
  static gboolean
-@@ -1375,6 +1470,18 @@ meta_onscreen_native_direct_scanout (CoglOnscreen   *onscreen,
+@@ -1375,6 +1476,18 @@ meta_onscreen_native_direct_scanout (CoglOnscreen   *onscreen,
        return FALSE;
      }
  
@@ -1752,7 +1763,7 @@ index 1ab117e..1c157ec 100644
    renderer_gpu_data = meta_renderer_native_get_gpu_data (renderer_native,
                                                           render_gpu);
  
-@@ -1414,6 +1521,8 @@ meta_onscreen_native_direct_scanout (CoglOnscreen   *onscreen,
+@@ -1414,6 +1527,8 @@ meta_onscreen_native_direct_scanout (CoglOnscreen   *onscreen,
    kms_device = meta_kms_crtc_get_device (kms_crtc);
    kms_update = meta_frame_native_ensure_kms_update (frame_native, kms_device);
  
@@ -1761,7 +1772,7 @@ index 1ab117e..1c157ec 100644
    meta_kms_update_add_result_listener (kms_update,
                                         on_scanout_update_result,
                                         onscreen_native);
-@@ -1558,7 +1667,20 @@ meta_onscreen_native_finish_frame (CoglOnscreen *onscreen,
+@@ -1558,7 +1673,20 @@ meta_onscreen_native_finish_frame (CoglOnscreen *onscreen,
    MetaKmsDevice *kms_device = meta_kms_crtc_get_device (kms_crtc);
    MetaFrameNative *frame_native = meta_frame_native_from_frame (frame);
    MetaKmsUpdate *kms_update;
@@ -1783,7 +1794,7 @@ index 1ab117e..1c157ec 100644
  
    kms_update = meta_frame_native_steal_kms_update (frame_native);
    if (!kms_update)
-@@ -1567,6 +1689,42 @@ meta_onscreen_native_finish_frame (CoglOnscreen *onscreen,
+@@ -1567,6 +1695,42 @@ meta_onscreen_native_finish_frame (CoglOnscreen *onscreen,
        return;
      }
  
@@ -1826,7 +1837,7 @@ index 1ab117e..1c157ec 100644
    meta_kms_update_add_result_listener (kms_update,
                                         on_finish_frame_update_result,
                                         onscreen_native);
-@@ -1587,7 +1745,17 @@ meta_onscreen_native_finish_frame (CoglOnscreen *onscreen,
+@@ -1587,7 +1751,17 @@ meta_onscreen_native_finish_frame (CoglOnscreen *onscreen,
    kms_feedback =
      meta_kms_device_process_update_sync (kms_device, kms_update,
                                           META_KMS_UPDATE_FLAG_NONE);
@@ -1845,7 +1856,7 @@ index 1ab117e..1c157ec 100644
  }
  
  static gboolean
-@@ -2414,7 +2582,7 @@ meta_onscreen_native_dispose (GObject *object)
+@@ -2414,7 +2588,7 @@ meta_onscreen_native_dispose (GObject *object)
      {
      case META_RENDERER_NATIVE_MODE_GBM:
        g_clear_object (&onscreen_native->gbm.next_fb);
@@ -1854,7 +1865,7 @@ index 1ab117e..1c157ec 100644
        break;
      case META_RENDERER_NATIVE_MODE_SURFACELESS:
        g_assert_not_reached ();
-@@ -2448,6 +2616,10 @@ meta_onscreen_native_dispose (GObject *object)
+@@ -2448,6 +2622,10 @@ meta_onscreen_native_dispose (GObject *object)
  
    g_clear_object (&onscreen_native->output);
    g_clear_object (&onscreen_native->crtc);
@@ -2158,7 +2169,7 @@ index 0000000..bad772b
 +
 +#endif /* META_SWAP_CHAIN_H */
 diff --git a/src/meson.build b/src/meson.build
-index a4fe085..ec76179 100644
+index 5e95e66..5fc6b4e 100644
 --- a/src/meson.build
 +++ b/src/meson.build
 @@ -820,6 +820,8 @@ if have_native_backend
