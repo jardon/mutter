@@ -34,6 +34,7 @@
 #include "x11/window-props.h"
 
 #include <X11/Xatom.h>
+#include <X11/extensions/shape.h>
 
 #define EVENT_MASK (SubstructureRedirectMask |                     \
                     StructureNotifyMask | SubstructureNotifyMask | \
@@ -106,6 +107,9 @@ meta_window_set_frame_xwindow (MetaWindow *window,
   attrs.event_mask = EVENT_MASK;
   XChangeWindowAttributes (x11_display->xdisplay,
 			   frame->xwindow, CWEventMask, &attrs);
+
+  if (META_X11_DISPLAY_HAS_SHAPE (x11_display))
+    XShapeSelectInput (x11_display->xdisplay, frame->xwindow, ShapeNotifyMask);
 
   meta_x11_display_register_x_window (x11_display, &frame->xwindow, window);
 
@@ -215,6 +219,9 @@ meta_window_destroy_frame (MetaWindow *window)
       window->reparents_pending += 1;
     }
 
+  if (META_X11_DISPLAY_HAS_SHAPE (x11_display))
+    XShapeSelectInput (x11_display->xdisplay, frame->xwindow, NoEventMask);
+
   XDeleteProperty (x11_display->xdisplay,
                    window->xwindow,
                    x11_display->atom__MUTTER_NEEDS_FRAME);
@@ -246,6 +253,9 @@ meta_window_destroy_frame (MetaWindow *window)
   g_free (frame);
 
   /* Put our state back where it should be */
+  if (!window->unmanaging)
+    meta_compositor_sync_updates_frozen (window->display->compositor, window);
+
   meta_window_queue (window, META_QUEUE_CALC_SHOWING);
   meta_window_queue (window, META_QUEUE_MOVE_RESIZE);
 }

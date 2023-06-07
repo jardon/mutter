@@ -58,28 +58,17 @@ get_backend (MetaInputSettings *settings)
   return meta_input_settings_get_backend (settings);
 }
 
-static MetaDisplay *
-get_display (MetaInputSettings *settings)
-{
-  MetaBackend *backend = get_backend (settings);
-  MetaContext *context = meta_backend_get_context (backend);
-
-  return meta_context_get_display (context);
-}
-
 static void
 device_handle_free (gpointer user_data)
 {
   DeviceHandle *handle = user_data;
   MetaInputSettings *settings = handle->settings;
-  MetaDisplay *display = get_display (settings);
   MetaBackend *backend = get_backend (settings);
   Display *xdisplay = meta_backend_x11_get_xdisplay (META_BACKEND_X11 (backend));
-  XDevice *xdev = user_data;
 
-  meta_x11_error_trap_push (display->x11_display);
-  XCloseDevice (xdisplay, xdev);
-  meta_x11_error_trap_pop (display->x11_display);
+  meta_clutter_x11_trap_x_errors ();
+  XCloseDevice (xdisplay, handle->xdev);
+  meta_clutter_x11_untrap_x_errors ();
 
   g_free (handle);
 }
@@ -88,24 +77,22 @@ static XDevice *
 device_ensure_xdevice (MetaInputSettings  *settings,
                        ClutterInputDevice *device)
 {
-  MetaDisplay *display = get_display (settings);
   MetaBackend *backend = get_backend (settings);
   Display *xdisplay = meta_backend_x11_get_xdisplay (META_BACKEND_X11 (backend));
   int device_id = meta_input_device_x11_get_device_id (device);
-  XDevice *xdev = NULL;
+  DeviceHandle *handle;
+  XDevice *xdev;
 
-  xdev = g_object_get_data (G_OBJECT (device), "meta-input-settings-xdevice");
-  if (xdev)
-    return xdev;
+  handle = g_object_get_data (G_OBJECT (device), "meta-input-settings-xdevice");
+  if (handle)
+    return handle->xdev;
 
-  meta_x11_error_trap_push (display->x11_display);
+  meta_clutter_x11_trap_x_errors ();
   xdev = XOpenDevice (xdisplay, device_id);
-  meta_x11_error_trap_pop (display->x11_display);
+  meta_clutter_x11_untrap_x_errors ();
 
   if (xdev)
     {
-      DeviceHandle *handle;
-
       handle = g_new0 (DeviceHandle, 1);
       handle->settings = settings;
       handle->xdev = xdev;
@@ -619,16 +606,12 @@ meta_input_settings_x11_set_tablet_mapping (MetaInputSettings     *settings,
                                             ClutterInputDevice    *device,
                                             GDesktopTabletMapping  mapping)
 {
-  MetaDisplay *display = get_display (settings);
   MetaBackend *backend = get_backend (settings);
   Display *xdisplay = meta_backend_x11_get_xdisplay (META_BACKEND_X11 (backend));
   XDevice *xdev;
 
-  if (!display)
-    return;
-
   /* Grab the puke bucket! */
-  meta_x11_error_trap_push (display->x11_display);
+  meta_clutter_x11_trap_x_errors ();
   xdev = device_ensure_xdevice (settings, device);
   if (xdev)
     {
@@ -637,11 +620,7 @@ meta_input_settings_x11_set_tablet_mapping (MetaInputSettings     *settings,
                       Absolute : Relative);
     }
 
-  if (meta_x11_error_trap_pop_with_return (display->x11_display))
-    {
-      g_warning ("Could not set tablet mapping for %s",
-                 clutter_input_device_get_device_name (device));
-    }
+  meta_clutter_x11_untrap_x_errors ();
 }
 
 static gboolean
@@ -776,16 +755,12 @@ meta_input_settings_x11_set_stylus_button_map (MetaInputSettings          *setti
                                                GDesktopStylusButtonAction  secondary,
                                                GDesktopStylusButtonAction  tertiary)
 {
-  MetaDisplay *display = get_display (settings);
   MetaBackend *backend = get_backend (settings);
   Display *xdisplay = meta_backend_x11_get_xdisplay (META_BACKEND_X11 (backend));
   XDevice *xdev;
 
-  if (!display)
-    return;
-
   /* Grab the puke bucket! */
-  meta_x11_error_trap_push (display->x11_display);
+  meta_clutter_x11_trap_x_errors ();
   xdev = device_ensure_xdevice (settings, device);
   if (xdev)
     {
@@ -803,11 +778,7 @@ meta_input_settings_x11_set_stylus_button_map (MetaInputSettings          *setti
       XSetDeviceButtonMapping (xdisplay, xdev, map, G_N_ELEMENTS (map));
     }
 
-  if (meta_x11_error_trap_pop_with_return (display->x11_display))
-    {
-      g_warning ("Could not set stylus button map for %s",
-                 clutter_input_device_get_device_name (device));
-    }
+  meta_clutter_x11_untrap_x_errors ();
 }
 
 static void
