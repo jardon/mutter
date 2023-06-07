@@ -1,9 +1,16 @@
-mutter (44.2-0ubuntu1) UNRELEASED; urgency=medium
+mutter (44.2-0ubuntu1) lunar; urgency=medium
 
+  [ Jeremy Bícha ]
   * New upstream release (LP: #2022951)
     - Fix drag and drop for Qt applications (LP: #2013235)
+  * Drop display-Set-compositor-selection-earlier patch: applied in new release
+  * Drop 2 flaky tests patches: no longer necessary
 
- -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 07 Jun 2023 10:28:41 -0400
+  [ Daniel van Vugt ]
+  * Update triple buffering patch to avoid NULL dereference on resume
+    from suspend
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 07 Jun 2023 10:46:02 -0400
 
 mutter (44.1-0ubuntu1) lunar; urgency=medium
 
