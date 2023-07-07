@@ -1,6 +1,6 @@
 mutter (44.3-0ubuntu1) UNRELEASED; urgency=medium
 
-  * New upstream release
+  * New upstream release (LP: #2026544)
 
  -- Jeremy Bícha <jbicha@ubuntu.com>  Fri, 07 Jul 2023 09:22:18 -0400
 
