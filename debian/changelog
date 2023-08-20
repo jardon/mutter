@@ -1,3 +1,9 @@
+mutter (43.7-2~deb12u1) UNRELEASED; urgency=medium
+
+  * Rebuild for bookworm (Closes: #1035092, #1049934, #1042055)
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 20 Aug 2023 13:17:37 +0100
+
 mutter (43.7-2) unstable; urgency=medium
 
   * Team upload
