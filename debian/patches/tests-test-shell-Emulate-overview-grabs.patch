@@ -1,0 +1,69 @@
+From: =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@gmail.com>
+Date: Tue, 15 Aug 2023 22:08:11 +0200
+Subject: tests/test-shell: Emulate overview grabs
+
+This mimics what gnome-shell does when the overview is shown. This means
+having a grab active, and setting the keyboard focus to the stage
+itself.
+
+Forwarded: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3195
+Applied-upstream: 43.8, commit:28e7a638731511fca8f58bdc9c35d59bf02fb9b0
+---
+ src/tests/meta-test-shell.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+diff --git a/src/tests/meta-test-shell.c b/src/tests/meta-test-shell.c
+index 09cf232..0a396b3 100644
+--- a/src/tests/meta-test-shell.c
++++ b/src/tests/meta-test-shell.c
+@@ -63,6 +63,11 @@ struct _MetaTestShell
+   ClutterActor *background_group;
+ 
+   MetaPluginInfo info;
++
++  struct {
++    ClutterGrab *grab;
++    ClutterActor *prev_focus;
++  } overview;
+ };
+ 
+ typedef struct _ActorPrivate
+@@ -287,6 +292,28 @@ on_monitors_changed (MetaMonitorManager *monitor_manager,
+   g_rand_free (rand);
+ }
+ 
++static void
++on_overlay_key (MetaDisplay   *display,
++                MetaTestShell *test_shell)
++{
++  MetaContext *context = meta_display_get_context (display);
++  MetaBackend *backend = meta_context_get_backend (context);
++  ClutterStage *stage = CLUTTER_STAGE (meta_backend_get_stage (backend));
++
++  if (!test_shell->overview.grab)
++    {
++      test_shell->overview.grab = clutter_stage_grab (stage, CLUTTER_ACTOR (stage));
++      test_shell->overview.prev_focus = clutter_stage_get_key_focus (stage);
++      clutter_stage_set_key_focus (stage, CLUTTER_ACTOR (stage));
++    }
++  else
++    {
++      g_clear_pointer (&test_shell->overview.grab, clutter_grab_dismiss);
++      clutter_stage_set_key_focus (stage,
++                                   g_steal_pointer (&test_shell->overview.prev_focus));
++    }
++}
++
+ static void
+ prepare_shutdown (MetaBackend   *backend,
+                   MetaTestShell *test_shell)
+@@ -312,6 +339,9 @@ meta_test_shell_start (MetaPlugin *plugin)
+                     G_CALLBACK (on_monitors_changed), plugin);
+   on_monitors_changed (monitor_manager, plugin);
+ 
++  g_signal_connect (display, "overlay-key",
++                    G_CALLBACK (on_overlay_key), plugin);
++
+   g_signal_connect (backend, "prepare-shutdown",
+                     G_CALLBACK (prepare_shutdown),
+                     test_shell);

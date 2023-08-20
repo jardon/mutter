@@ -1,0 +1,80 @@
+From: =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@gmail.com>
+Date: Tue, 15 Aug 2023 23:40:39 +0200
+Subject: tests: Add test case for restoring focus after overview
+
+This is a test case for
+https://gitlab.gnome.org/GNOME/mutter/-/issues/2690.
+
+Bug: https://gitlab.gnome.org/GNOME/mutter/-/issues/2690
+Bug-Debian: https://bugs.debian.org/1035092
+Bug-Debian: https://bugs.debian.org/1049934
+Forwarded: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3195
+Applied-upstream: 43.8, commit:3139cbb47ca398ee22f6cae48b05b4e0b3f68f99
+---
+ src/tests/meson.build                      |  1 +
+ src/tests/stacking/overview-focus.metatest | 44 ++++++++++++++++++++++++++++++
+ 2 files changed, 45 insertions(+)
+ create mode 100644 src/tests/stacking/overview-focus.metatest
+
+diff --git a/src/tests/meson.build b/src/tests/meson.build
+index d52dd93..775c97b 100644
+--- a/src/tests/meson.build
++++ b/src/tests/meson.build
+@@ -462,6 +462,7 @@ stacking_tests = [
+   'workspace-test',
+   'always-on-top',
+   'focus-default-window-globally-active-input',
++  'overview-focus',
+ ]
+ 
+ foreach stacking_test: stacking_tests
+diff --git a/src/tests/stacking/overview-focus.metatest b/src/tests/stacking/overview-focus.metatest
+new file mode 100644
+index 0000000..07dfe5a
+--- /dev/null
++++ b/src/tests/stacking/overview-focus.metatest
+@@ -0,0 +1,44 @@
++new_client w wayland
++
++create w/1
++show w/1
++wait
++assert_focused w/1
++hide w/1
++destroy w/1
++
++toggle_overview
++
++create w/1
++show w/1
++wait
++assert_focused none
++
++toggle_overview
++
++assert_focused w/1
++hide w/1
++destroy w/1
++
++
++new_client x x11
++
++create x/1
++show x/1
++wait
++assert_focused x/1
++hide x/1
++destroy x/1
++
++toggle_overview
++
++create x/1
++show x/1
++wait
++assert_focused none
++
++toggle_overview
++
++assert_focused x/1
++hide x/1
++destroy x/1

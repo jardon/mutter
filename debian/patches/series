@@ -1,4 +1,12 @@
-wayland-outputs-Fix-potential-crash-when-output-has-no-mo.patch
+output-kms-Use-meta_kms_connector_get_preferred_mode-in-i.patch
+cogl-gl-framebuffer-Fix-inverted-test-in-ensure_bits_init.patch
+tests-Introduce-and-use-a-custom-test-shell.patch
+tests-test-shell-Emulate-overview-grabs.patch
+tests-test-runner-Add-toggle_overview-command.patch
+clutter-stage-Add-is-grabbed-property.patch
+window-Postpone-focusing-until-grab-ended-if-uninteractab.patch
+tests-Add-test-case-for-restoring-focus-after-overview.patch
+tests-Reinstate-meta_test_get_plugin_name.patch
 tests-Break-up-stacking-installed-tests-into-more-smaller.patch
 tests-Use-a-more-interoperable-path-to-bash.patch
 meson-add-back-default_driver-option.patch

@@ -6,7 +6,7 @@ Source: mutter
 Section: x11
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Jeremy Bicha <jbicha@ubuntu.com>
+Uploaders: Laurent Bigonville <bigon@debian.org>, Marco Trevisan (Treviño) <marco@ubuntu.com>
 Build-Depends: debhelper-compat (= 13),
                dh-exec,
                dh-sequence-gir,
@@ -86,7 +86,7 @@ Build-Depends: debhelper-compat (= 13),
                zenity
 Rules-Requires-Root: no
 Standards-Version: 4.6.2
-Vcs-Git: https://salsa.debian.org/gnome-team/mutter.git -b debian/bookworm
+Vcs-Git: https://salsa.debian.org/gnome-team/mutter.git -b debian/trixie
 Vcs-Browser: https://salsa.debian.org/gnome-team/mutter
 
 Package: mutter

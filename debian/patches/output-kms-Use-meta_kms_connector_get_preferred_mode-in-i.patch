@@ -1,0 +1,59 @@
+From: =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>
+Date: Tue, 6 Jun 2023 12:18:02 +0200
+Subject: output/kms: Use meta_kms_connector_get_preferred_mode in
+ init_output_modes
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+I have a monitor which can report two preferred modes: 5120x1440@240
+and 3840x1080@60. Since they are enumerated in this order by KMS,
+init_output_modes would end up using 3840x1080@60 (and it was impossible
+to select any 5120x1440 mode in the GNOME display settings).
+
+Fix this by using meta_kms_connector_get_preferred_mode, which returns
+the first KMS mode with DRM_MODE_TYPE_PREFERRED.
+
+v2:
+* Use meta_kms_connector_get_preferred_mode. (Jonas Ådahl)
+
+Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+(cherry picked from commit 4d664fd797e4cc2c076d3d125f4ac37d6b316501)
+
+Forwarded: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3055
+Applied-upstream: 43.8, commit:e526843172327300a4e3ec5484954c4d7e859e52
+---
+ src/backends/native/meta-output-kms.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/backends/native/meta-output-kms.c b/src/backends/native/meta-output-kms.c
+index 0393a62..d5e710d 100644
+--- a/src/backends/native/meta-output-kms.c
++++ b/src/backends/native/meta-output-kms.c
+@@ -365,10 +365,12 @@ init_output_modes (MetaOutputInfo    *output_info,
+                    GError           **error)
+ {
+   const MetaKmsConnectorState *connector_state;
++  MetaKmsMode *kms_preferred_mode;
+   GList *l;
+   int i;
+ 
+   connector_state = meta_kms_connector_get_current_state (kms_connector);
++  kms_preferred_mode = meta_kms_connector_get_preferred_mode (kms_connector);
+ 
+   output_info->preferred_mode = NULL;
+ 
+@@ -377,12 +379,11 @@ init_output_modes (MetaOutputInfo    *output_info,
+   for (l = connector_state->modes, i = 0; l; l = l->next, i++)
+     {
+       MetaKmsMode *kms_mode = l->data;
+-      const drmModeModeInfo *drm_mode = meta_kms_mode_get_drm_mode (kms_mode);
+       MetaCrtcMode *crtc_mode;
+ 
+       crtc_mode = meta_gpu_kms_get_mode_from_kms_mode (gpu_kms, kms_mode);
+       output_info->modes[i] = crtc_mode;
+-      if (drm_mode->type & DRM_MODE_TYPE_PREFERRED)
++      if (kms_mode == kms_preferred_mode)
+         output_info->preferred_mode = output_info->modes[i];
+     }
+ 
