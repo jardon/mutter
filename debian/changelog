@@ -1,11 +1,11 @@
-mutter (42.9-0ubuntu5) UNRELEASED; urgency=medium
+mutter (42.9-0ubuntu5) jammy; urgency=medium
 
   [ Daniel van Vugt ]
   * Drop clutter-frame-clock-Avoid-rapidly-toggling-dynamic-max-re.patch.
     It was never really required in mutter 42 but has caused some new stutter
     elsewhere (LP: #2030959)
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 11 Sep 2023 15:39:24 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 11 Sep 2023 15:39:50 +0200
 
 mutter (42.9-0ubuntu4) jammy; urgency=medium
 
