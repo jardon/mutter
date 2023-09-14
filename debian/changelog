@@ -1,8 +1,18 @@
-mutter (43.7-2~deb12u1) UNRELEASED; urgency=medium
+mutter (43.8-0+deb12u1) UNRELEASED; urgency=medium
 
-  * Rebuild for bookworm (Closes: #1035092, #1049934, #1042055)
+  * Apply changes from 43.7-2 to bookworm
+    (Closes: #1035092, #1049934, #1042055)
+  * New upstream stable release 43.8
+    - Fix the ability to drag libdecor windows by their title bar on
+      touchscreens (mutter#2872)
+    - Fix flickering and rendering artifacts when using software rendering,
+      for example on older Intel hardware unsupported by the Gallium i915
+      driver (mutter#2602)
+    - Improve GNOME Shell app grid performance by avoiding repainting
+      monitors other than the one it is displayed on (mutter#6819)
+    - All other changes were previously included in 43.7-1, 43.7-2
 
- -- Simon McVittie <smcv@debian.org>  Sun, 20 Aug 2023 13:17:37 +0100
+ -- Simon McVittie <smcv@debian.org>  Thu, 14 Sep 2023 10:49:45 +0100
 
 mutter (43.7-2) unstable; urgency=medium
 
