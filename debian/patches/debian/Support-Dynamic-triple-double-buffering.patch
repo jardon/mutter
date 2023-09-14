@@ -556,10 +556,10 @@ index 842ecec..1e2b11d 100644
  cogl_onscreen_add_frame_callback (CoglOnscreen *onscreen,
                                    CoglFrameCallback callback,
 diff --git a/src/backends/meta-stage-impl.c b/src/backends/meta-stage-impl.c
-index 25d240d..d8f009a 100644
+index 93e911b..09908e8 100644
 --- a/src/backends/meta-stage-impl.c
 +++ b/src/backends/meta-stage-impl.c
-@@ -731,6 +731,8 @@ meta_stage_impl_redraw_view (ClutterStageWindow *stage_window,
+@@ -733,6 +733,8 @@ meta_stage_impl_redraw_view (ClutterStageWindow *stage_window,
      {
        g_autoptr (GError) error = NULL;
  
