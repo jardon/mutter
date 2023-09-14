@@ -12,6 +12,8 @@ mutter_test_sources = [
   'meta-ref-test.h',
   'meta-sensors-proxy-mock.c',
   'meta-sensors-proxy-mock.h',
+  'meta-test-shell.c',
+  'meta-test-shell.h',
   'meta-test-utils.c',
   'meta-test-utils.h',
 ]
@@ -460,6 +462,7 @@ stacking_tests = [
   'workspace-test',
   'always-on-top',
   'focus-default-window-globally-active-input',
+  'overview-focus',
 ]
 
 foreach stacking_test: stacking_tests
