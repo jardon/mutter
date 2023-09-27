@@ -63,6 +63,8 @@ triple-buffering/kms-Avoid-queuing-multiple-un-assignments-to-the-same-pla.patch
 triple-buffering/onscreen-native-Increase-secondary-GPU-dumb_fbs-from-2-to.patch
 triple-buffering/clutter-frame-clock-Target-the-correct-next_presentation_.patch
 triple-buffering/clutter-frame-clock-Fall-back-to-triple-buffering-not-dou.patch
+triple-buffering/clutter-frame-clock-Avoid-rapidly-toggling-dynamic-max-re.patch
+triple-buffering/clutter-frame-clock-Record-measurements-of-zero-for-curso.patch
 debian/tests-Disable-restore-size-test.patch
 workspace-Don-t-crash-on-invalid-argument-to-meta_workspa.patch
 debian/Mark-xwayland-test-case-as-known-to-be-flaky-on-32-bit-AR.patch
