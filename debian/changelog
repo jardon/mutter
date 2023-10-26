@@ -1,3 +1,10 @@
+mutter (45.0-3ubuntu4) noble; urgency=medium
+
+  * Cherry pick 4 commits to fix SIGKILL on lockscreen. (LP: #2034619)
+  * Drop kms-impl-device-Inhibit-deadline-timer-on-amdgpu.patch
+
+ -- Mario Limonciello <superm1@gmail.com>  Thu, 26 Oct 2023 10:27:44 -0500
+
 mutter (45.0-3ubuntu3) mantic; urgency=medium
 
   * Update build autopkgtest to not run dh_auto_test (LP: #2038564)
