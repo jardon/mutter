@@ -455,8 +455,8 @@ index fe9406f..5e76e55 100644
 +      height *= ceilf (max_scale);
 +      /* fall through! */
      case META_LOGICAL_MONITOR_LAYOUT_MODE_LOGICAL:
-       width = roundf (width / logical_monitor_config->scale);
-       height = roundf (height / logical_monitor_config->scale);
+       width = roundf (width / scale);
+       height = roundf (height / scale);
 @@ -900,6 +905,7 @@ handle_end_element (GMarkupParseContext  *context,
          GList *l;
          MetaLogicalMonitorLayoutMode layout_mode;
