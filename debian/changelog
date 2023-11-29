@@ -1,11 +1,4 @@
-mutter (45.1-2) experimental; urgency=medium
-
-  * Cherry-pick several commits to fix Wacom on X11 issues (LP: #2043027)
-  * Cherry-pick other commits suggested in !3414 to fix several issues
-
- -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 29 Nov 2023 09:48:34 -0500
-
-mutter (45.1-1ubuntu1) UNRELEASED; urgency=medium
+mutter (45.1-2ubuntu1) noble; urgency=medium
 
   * Merge with Debian. Remaining changes:
     - Add x11-Add-support-for-fractional-scaling-using-Randr.patch
@@ -14,6 +7,13 @@ mutter (45.1-1ubuntu1) UNRELEASED; urgency=medium
         window constraints
 
  -- Jeremy Bícha <jbicha@ubuntu.com>  Sun, 12 Nov 2023 12:35:36 -0500
+
+mutter (45.1-2) experimental; urgency=medium
+
+  * Cherry-pick several commits to fix Wacom on X11 issues (LP: #2043027)
+  * Cherry-pick other commits suggested in !3414 to fix several issues
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 29 Nov 2023 09:48:34 -0500
 
 mutter (45.1-1) experimental; urgency=medium
 
