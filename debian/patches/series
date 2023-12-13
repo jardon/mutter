@@ -4,10 +4,10 @@ debian/meson-Do-not-mark-CI-test-tools-as-required.patch
 debian/tests-Do-not-run-screencast-tests.patch
 debian/Support-Dynamic-triple-double-buffering.patch
 workarounds/tests-skip-monitor-width-size-check-as-it-may-lead-to-une.patch
-workarounds/tests-Disable-restore-size-test.patch
 workarounds/tests-Skip-thread-priority-test.patch
 ubuntu/x11-Add-support-for-fractional-scaling-using-Randr.patch
 ubuntu/window-Add-ability-to-override-the-edge-constraints.patch
 workarounds/cogl-onscreen-glx-Forcefully-disable-cogl_onscreen_glx_ge.patch
 gen_default_modes-Consider-reduced-blanking-with-lower-pi.patch
 compositor-x11-Sync-again-at-the-end-of-before_paint.patch
+workarounds/Mark-several-additional-tests-as-flaky.patch
