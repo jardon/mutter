@@ -1,3 +1,17 @@
+mutter (45.2-0ubuntu2~really45.0) mantic; urgency=medium
+
+  * Roll back to address regression LP: #2046360.
+    - Full revert to mutter 45.0-3ubuntu3.1, with revert implemented under
+      debian/patches to avoid having to keep around confusing version numbers
+      for very long.
+    - mutter 45.2 introduces new library symbols vs 45.0 but no packages
+      have picked up dependencies on these symbols yet via rebuilds, and all
+      binary packages built from mutter source have a strict versioned
+      dependency on the library package; so a straight revert of the symbols
+      file is possible without the need to add any additional Breaks.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Sun, 17 Dec 2023 19:44:15 -0800
+
 mutter (45.2-0ubuntu1) mantic; urgency=medium
 
   [ Jeremy Bícha ]
