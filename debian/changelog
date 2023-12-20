@@ -1,3 +1,13 @@
+mutter (45.2-3ubuntu1) noble; urgency=medium
+
+  * Merge with Debian. Remaining changes:
+    - Add x11-Add-support-for-fractional-scaling-using-Randr.patch
+    - Add window-Add-ability-to-override-the-edge-constraints.patch
+      + Make possible for extensions (such as Tiling Assistant) to override
+        window constraints
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 20 Dec 2023 09:32:48 -0500
+
 mutter (45.2-3) experimental; urgency=medium
 
   [ Daniel van Vugt ]
