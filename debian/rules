@@ -24,6 +24,7 @@ CONFFLAGS = \
 	-Degl_device=true \
 	-Dremote_desktop=true \
 	-Dwayland_eglstream=true
+export deb_udevdir = $(shell pkg-config --variable=udevdir udev | sed s,^/,,)
 else
 CONFFLAGS = \
 	-Dsystemd=false \
@@ -35,11 +36,14 @@ CONFFLAGS = \
 	-Dnative_tests=false \
 	-Dprofiler=false \
 	-Dremote_desktop=false
+export deb_udevdir =
 endif
 
 ifneq ($(filter i386,$(DEB_HOST_ARCH)),)
 CONFFLAGS +=-Dprofiler=false
 endif
+
+override_dh_gnome_clean:
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
@@ -56,7 +60,7 @@ TEST_COMMAND_BASE=env \
 	dh_auto_test -- -C $(BUILDDIR) --no-rebuild --verbose --timeout-multiplier 6 \
 	           --no-stdsplit --print-errorlogs
 TEST_COMMAND=$(TEST_COMMAND_BASE) --no-suite flaky
-TEST_COMMAND_FLAKY=$(TEST_COMMAND_BASE) --suite flaky
+TEST_COMMAND_FLAKY=env DEB_ALLOW_FLAKY_TESTS=1 $(TEST_COMMAND_BASE) --suite flaky
 
 # Don't run the tests on mips etc. since they either time out or fail too
 # much, blocking migration to testing.

@@ -1,3 +1,37 @@
+mutter (45.2-3) experimental; urgency=medium
+
+  [ Daniel van Vugt ]
+  * Update Support-Dynamic-triple-double-buffering.patch
+    with a fix to the frame clock for a regression inherited from
+    45.1 (8f27ebf8) whereby it would enter triple buffering mode
+    prematurely. And because it was premature, the clock would soon
+    notice that triple buffering isn't required and drop back to double
+    buffering. But the switch from triple to double buffering stalls the
+    client frame queue by one frame which for some clients like Firefox
+    is seen as a frame skip. (LP: #2046360)
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 20 Dec 2023 09:29:22 -0500
+
+mutter (45.2-2) experimental; urgency=medium
+
+  * Team upload
+
+  [ Chris Hofstaedtler ]
+  * Honor udev.pc's udevdir when installing udev rules (Closes: #1057319)
+
+  [ Simon McVittie ]
+  * Merge with version 44.7-1 from unstable
+  * d/control, d/rules: Stop generating d/control from d/control.in
+  * d/patches: Mark several additional tests as flaky.
+    Most of these have never been reliable on Debian buildds, especially
+    on ARM, so having them fail is not a regression. They usually succeed
+    after a few retries, but that's time-consuming and unsuitable to be a
+    QA gate.
+    The restore-size test was previously not run at all: now it is run, but
+    marked as flaky (so its result is ignored).
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 13 Dec 2023 17:08:10 +0000
+
 mutter (45.2-1ubuntu1) noble; urgency=medium
 
   * Merge with Debian. Remaining changes:
@@ -7,6 +41,19 @@ mutter (45.2-1ubuntu1) noble; urgency=medium
         window constraints
 
  -- Jeremy Bícha <jbicha@ubuntu.com>  Fri, 08 Dec 2023 15:19:05 -0500
+
+mutter (44.7-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Simon McVittie ]
+  * New upstream release
+  * Drop patches that were included in the upstream release
+
+  [ Chris Hofstaedtler ]
+  * Honor udev.pc's udevdir when installing udev rules (Closes: #1057319)
+
+ -- Simon McVittie <smcv@debian.org>  Tue, 12 Dec 2023 13:31:00 +0000
 
 mutter (45.2-1) experimental; urgency=medium
 
