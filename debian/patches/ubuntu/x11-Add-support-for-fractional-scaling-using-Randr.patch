@@ -435,7 +435,7 @@ index 29ac41e..dd5369e 100644
  
  META_EXPORT_TEST
 diff --git a/src/backends/meta-monitor-config-store.c b/src/backends/meta-monitor-config-store.c
-index fe9406f..5e76e55 100644
+index 53a32cd..0a7cce0 100644
 --- a/src/backends/meta-monitor-config-store.c
 +++ b/src/backends/meta-monitor-config-store.c
 @@ -648,6 +648,7 @@ handle_start_element (GMarkupParseContext  *context,
@@ -446,7 +446,7 @@ index fe9406f..5e76e55 100644
                                 GError                     **error)
  {
    MetaMonitorConfig *monitor_config;
-@@ -685,6 +686,10 @@ derive_logical_monitor_layout (MetaLogicalMonitorConfig    *logical_monitor_conf
+@@ -688,6 +689,10 @@ derive_logical_monitor_layout (MetaLogicalMonitorConfig    *logical_monitor_conf
  
    switch (layout_mode)
      {
@@ -455,9 +455,9 @@ index fe9406f..5e76e55 100644
 +      height *= ceilf (max_scale);
 +      /* fall through! */
      case META_LOGICAL_MONITOR_LAYOUT_MODE_LOGICAL:
-       width = roundf (width / logical_monitor_config->scale);
-       height = roundf (height / logical_monitor_config->scale);
-@@ -900,6 +905,7 @@ handle_end_element (GMarkupParseContext  *context,
+       width = roundf (width / scale);
+       height = roundf (height / scale);
+@@ -909,6 +914,7 @@ handle_end_element (GMarkupParseContext  *context,
          GList *l;
          MetaLogicalMonitorLayoutMode layout_mode;
          MetaMonitorsConfigFlag config_flags = META_MONITORS_CONFIG_FLAG_NONE;
@@ -465,7 +465,7 @@ index fe9406f..5e76e55 100644
  
          g_assert (g_str_equal (element_name, "configuration"));
  
-@@ -909,18 +915,29 @@ handle_end_element (GMarkupParseContext  *context,
+@@ -918,18 +924,29 @@ handle_end_element (GMarkupParseContext  *context,
            layout_mode =
              meta_monitor_manager_get_default_layout_mode (store->monitor_manager);
  
@@ -552,7 +552,7 @@ index 315117e..dec71bf 100644
          settings,
          META_EXPERIMENTAL_FEATURE_SCALE_MONITOR_FRAMEBUFFER))
 diff --git a/src/backends/meta-monitor-manager-private.h b/src/backends/meta-monitor-manager-private.h
-index 242fc23..cee9f7c 100644
+index 2d45fe7..465a1b9 100644
 --- a/src/backends/meta-monitor-manager-private.h
 +++ b/src/backends/meta-monitor-manager-private.h
 @@ -47,7 +47,9 @@ typedef enum _MetaMonitorManagerCapability
@@ -621,7 +621,7 @@ index 242fc23..cee9f7c 100644
    void (* tiled_monitor_added) (MetaMonitorManager *manager,
                                  MetaMonitor        *monitor);
  
-@@ -383,6 +396,11 @@ gboolean           meta_monitor_manager_is_scale_supported (MetaMonitorManager
+@@ -384,6 +397,11 @@ gboolean           meta_monitor_manager_is_scale_supported (MetaMonitorManager
                                                              MetaMonitorMode             *monitor_mode,
                                                              float                        scale);
  
@@ -634,7 +634,7 @@ index 242fc23..cee9f7c 100644
                     meta_monitor_manager_get_capabilities (MetaMonitorManager *manager);
  
 diff --git a/src/backends/meta-monitor-manager.c b/src/backends/meta-monitor-manager.c
-index 3b836f3..23b5a6b 100644
+index b85130f..438120b 100644
 --- a/src/backends/meta-monitor-manager.c
 +++ b/src/backends/meta-monitor-manager.c
 @@ -131,6 +131,15 @@ static gboolean
@@ -1556,10 +1556,10 @@ index 1e107b0..1994e6f 100644
      g_signal_new ("experimental-features-changed",
                    G_TYPE_FROM_CLASS (object_class),
 diff --git a/src/backends/native/meta-monitor-manager-native.c b/src/backends/native/meta-monitor-manager-native.c
-index 8a4d907..d5478c1 100644
+index 85234ce..05d2599 100644
 --- a/src/backends/native/meta-monitor-manager-native.c
 +++ b/src/backends/native/meta-monitor-manager-native.c
-@@ -451,6 +451,7 @@ get_monitor_scale_constraints_from_layout_mode (MetaLogicalMonitorLayoutMode lay
+@@ -453,6 +453,7 @@ get_monitor_scale_constraints_from_layout_mode (MetaLogicalMonitorLayoutMode lay
    switch (layout_mode)
      {
      case META_LOGICAL_MONITOR_LAYOUT_MODE_LOGICAL:
@@ -2922,7 +2922,7 @@ index 1ad3327..8fe42db 100644
  out:
    set_unredirected_window (compositor_x11, window_to_unredirect);
 diff --git a/src/core/window.c b/src/core/window.c
-index f100a8b..2fbf3d2 100644
+index 7fe0b8c..037e545 100644
 --- a/src/core/window.c
 +++ b/src/core/window.c
 @@ -230,6 +230,7 @@ enum
@@ -2933,7 +2933,7 @@ index f100a8b..2fbf3d2 100644
    SHOWN,
    HIGHEST_SCALE_MONITOR_CHANGED,
  
-@@ -695,6 +696,21 @@ meta_window_class_init (MetaWindowClass *klass)
+@@ -698,6 +699,21 @@ meta_window_class_init (MetaWindowClass *klass)
                    NULL, NULL, NULL,
                    G_TYPE_NONE, 0);
  
@@ -2955,7 +2955,7 @@ index f100a8b..2fbf3d2 100644
    /**
     * MetaWindow::shown:
     * @window: a #MetaWindow
-@@ -976,6 +992,9 @@ meta_window_main_monitor_changed (MetaWindow               *window,
+@@ -979,6 +995,9 @@ meta_window_main_monitor_changed (MetaWindow               *window,
  {
    META_WINDOW_GET_CLASS (window)->main_monitor_changed (window, old);
  

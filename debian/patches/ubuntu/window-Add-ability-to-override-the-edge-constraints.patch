@@ -67,7 +67,7 @@ index 4df552a..092e150 100644
  
    uint64_t preferred_output_winsys_id;
 diff --git a/src/core/window.c b/src/core/window.c
-index 2fbf3d2..99c1737 100644
+index 037e545..df7a6d5 100644
 --- a/src/core/window.c
 +++ b/src/core/window.c
 @@ -74,6 +74,7 @@
@@ -78,7 +78,7 @@ index 2fbf3d2..99c1737 100644
  #include "core/meta-workspace-manager-private.h"
  #include "core/place.h"
  #include "core/stack.h"
-@@ -2911,6 +2912,38 @@ meta_window_update_tile_fraction (MetaWindow *window,
+@@ -2903,6 +2904,38 @@ meta_window_update_tile_fraction (MetaWindow *window,
      meta_window_tile (tile_match, tile_match->tile_mode);
  }
  
@@ -117,7 +117,7 @@ index 2fbf3d2..99c1737 100644
  static void
  update_edge_constraints (MetaWindow *window)
  {
-@@ -2966,6 +2999,18 @@ update_edge_constraints (MetaWindow *window)
+@@ -2958,6 +2991,18 @@ update_edge_constraints (MetaWindow *window)
        window->edge_constraints.right = META_EDGE_CONSTRAINT_MONITOR;
        window->edge_constraints.left = META_EDGE_CONSTRAINT_MONITOR;
      }
