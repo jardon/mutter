@@ -8,3 +8,4 @@ workarounds/wayland-data-device-Allow-any-drag-timestamp-as-drag-star.patch
 debian/Support-Dynamic-triple-double-buffering.patch
 build-Support-sysprof-6.patch
 workarounds/Mark-several-additional-tests-as-flaky.patch
+ibus-caps-lock-accented-letters.patch
