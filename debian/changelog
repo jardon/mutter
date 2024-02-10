@@ -1,3 +1,10 @@
+mutter (44.8-3) unstable; urgency=medium
+
+  * Cherry-pick several cursor fix to fix compatibility with latest
+    adwaita-icon-theme (Closes: #1063640)
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Sat, 10 Feb 2024 07:56:05 -0500
+
 mutter (44.8-2) unstable; urgency=medium
 
   * Cherry-pick patch from 45.1 to fix using caps lock to enter
