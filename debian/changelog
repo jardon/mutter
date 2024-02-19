@@ -1,8 +1,19 @@
-mutter (46~beta-1) UNRELEASED; urgency=medium
+mutter (46~beta-0ubuntu1) UNRELEASED; urgency=medium
 
+  [ Jeremy Bícha ]
   * New upstream release
+  * Update binary package names for soname bump
+  * Update symbols
+  * Add Build-Depends: libpixman-1-dev
+  * Bump minimum wayland-protocols to 1.33
+  * Drop obsolete Build-Depends: libjson-glib-dev
+  * Drop patch applied in new release
+  * Disable x11 fractional scaling patch for now
 
- -- Jeremy Bícha <jbicha@ubuntu.com>  Sun, 18 Feb 2024 20:00:43 -0500
+  [ Daniel van Vugt ]
+  * Update triple buffering patch
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Sun, 18 Feb 2024 21:12:56 -0500
 
 mutter (45.3-1ubuntu1) noble; urgency=medium
 
