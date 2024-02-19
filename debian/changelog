@@ -1,3 +1,9 @@
+mutter (46~beta-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Sun, 18 Feb 2024 20:00:43 -0500
+
 mutter (45.3-1ubuntu1) noble; urgency=medium
 
   * Merge with Debian. Remaining changes:
