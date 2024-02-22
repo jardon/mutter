@@ -1,3 +1,10 @@
+mutter (45.2-0ubuntu4) mantic; urgency=medium
+
+  [ Kai-Heng Feng ]
+  * Fix mirror mode on reduced blanking panel. (LP: #2051074)
+
+ -- Kai-Heng Feng <kai.heng.feng@canonical.com>  Wed, 24 Jan 2024 15:08:02 +0800
+
 mutter (45.2-0ubuntu3) mantic; urgency=medium
 
   [ Jeremy Bícha ]
