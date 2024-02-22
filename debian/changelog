@@ -3,7 +3,11 @@ mutter (45.2-0ubuntu4) mantic; urgency=medium
   [ Kai-Heng Feng ]
   * Fix mirror mode on reduced blanking panel. (LP: #2051074)
 
- -- Kai-Heng Feng <kai.heng.feng@canonical.com>  Wed, 24 Jan 2024 15:08:02 +0800
+  [ Daniel van Vugt ]
+  * Add compositor-x11-Sync-again-at-the-end-of-before_paint.patch
+    to fix incomplete redraws in X11 virtual machines (LP: #2054510)
+
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Thu, 22 Feb 2024 16:32:33 +0800
 
 mutter (45.2-0ubuntu3) mantic; urgency=medium
 
