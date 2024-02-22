@@ -1,0 +1,100 @@
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Date: Mon, 11 Dec 2023 12:01:26 +0800
+Subject: gen_default_modes: Consider reduced blanking with lower pixelclock
+
+Some panels only support fixed resolutions and fixed refresh rate with reduced blanking:
+  Established Timings I & II: none
+  Standard Timings: none
+  Detailed Timing Descriptors:
+    DTD 1:  2560x1600  120.001823 Hz   8:5    203.283 kHz    552.930000 MHz (345 mm x 215 mm)
+                 Hfront   48 Hsync  32 Hback   80 Hpol P
+                 Vfront    3 Vsync   6 Vback   85 Vpol N
+    DTD 2:  2560x1600   48.000295 Hz   8:5     81.312 kHz    221.170000 MHz (345 mm x 215 mm)
+                 Hfront   48 Hsync  32 Hback   80 Hpol P
+                 Vfront    3 Vsync   6 Vback   85 Vpol N
+...
+    Minimum Pixel Clock: 552922 kHz
+    Maximum Pixel Clock: 552922 kHz
+
+When using mirror mode, resolutions like 2560x1440 120Hz can be too high
+to meet the pixelclock limitation, so 2560x1440 90Hz is selected
+instead. However, the panel only supports 120Hz so using 90Hz result to
+failed mode set.
+
+So add reduced blanking to fallback mode, so correct refresh rate can be
+used.
+
+Part-of: <https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3449>
+(cherry picked from commit 8e58aa46acf5bf5e83ba64d959a8476df1fbf7fb)
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ src/backends/native/gen-default-modes.py | 27 +++++++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
+
+diff --git a/src/backends/native/gen-default-modes.py b/src/backends/native/gen-default-modes.py
+index 79542f8..520097b 100755
+--- a/src/backends/native/gen-default-modes.py
++++ b/src/backends/native/gen-default-modes.py
+@@ -19,6 +19,7 @@
+ 
+ import os
+ import sys
++import re
+ 
+ if len(sys.argv) != 2:
+   print("Usage: %s [output file]"%sys.argv[0])
+@@ -93,7 +94,7 @@ def drm_mode_info_from_modeline(line):
+ 
+ def portrait_drm_mode_info_from_modeline(line):
+     sline = line.split()
+-    return "{ %d, %d, %d, %d, %d, 0, %d, %d, %d, %d, 0, 0, %s, DRM_MODE_TYPE_DEFAULT, \"%dx%d_%s }," % \
++    return "{ %d, %d, %d, %d, %d, 0, %d, %d, %d, %d, 0, 0, %s, DRM_MODE_TYPE_DEFAULT, \"%dx%d%s\" }," % \
+         (int(float(sline[2]) * 1000),
+          int(sline[7]),
+          int(sline[8]),
+@@ -104,15 +105,24 @@ def portrait_drm_mode_info_from_modeline(line):
+          int(sline[5]),
+          int(sline[6]),
+          sync_flags(sline[12], sline[11]),
+-         int(sline[7]), int(sline[3]), sline[1].split("_")[1])
++         int(sline[7]), int(sline[3]), re.match(r'^"[0-9]+x[0-9]+(.*)"$', sline[1]).group(1))
+ 
+ for resolution in common_resolutions:
+     for refresh_rate in common_refresh_rates:
+         cvt = os.popen("%s %s %s %s" % ('cvt', resolution[0], resolution[1], refresh_rate))
+         cvt.readline() # discard comment line
+         line = cvt.readline()
+-        output_lines.append(drm_mode_info_from_modeline(line))
+         cvt.close()
++
++        if refresh_rate % 60 == 0:
++            cvt_rb = os.popen("%s %s %s %s %s" % ('cvt', '-r', resolution[0], resolution[1], refresh_rate))
++            cvt_rb.readline() # discard comment line
++            line_rb = cvt_rb.readline()
++            output_lines.append(drm_mode_info_from_modeline(line_rb))
++            cvt_rb.close()
++
++        output_lines.append(drm_mode_info_from_modeline(line))
++
+ output_lines.append("};")
+ 
+ output_lines.append("")
+@@ -122,8 +132,17 @@ for resolution in common_resolutions:
+         cvt = os.popen("%s %s %s %s" % ('cvt', resolution[0], resolution[1], refresh_rate))
+         cvt.readline() # discard comment line
+         line = cvt.readline()
+-        output_lines.append(portrait_drm_mode_info_from_modeline(line))
+         cvt.close()
++
++        if refresh_rate % 60 == 0:
++            cvt_rb = os.popen("%s %s %s %s %s" % ('cvt', '-r', resolution[0], resolution[1], refresh_rate))
++            cvt_rb.readline() # discard comment line
++            line_rb = cvt_rb.readline()
++            output_lines.append(portrait_drm_mode_info_from_modeline(line_rb))
++            cvt_rb.close()
++
++        output_lines.append(portrait_drm_mode_info_from_modeline(line))
++
+ output_lines.append("};")
+ 
+ try:

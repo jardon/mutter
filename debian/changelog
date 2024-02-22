@@ -1,3 +1,10 @@
+mutter (42.9-0ubuntu6) jammy; urgency=medium
+
+  [ Kai-Heng Feng ]
+  * Fix mirror mode on reduced blanking panel. (LP: #2051074)
+
+ -- Kai-Heng Feng <kai.heng.feng@canonical.com>  Wed, 24 Jan 2024 15:17:22 +0800
+
 mutter (42.9-0ubuntu5) jammy; urgency=medium
 
   [ Daniel van Vugt ]
