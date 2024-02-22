@@ -6,6 +6,7 @@ mutter (42.9-0ubuntu6) jammy; urgency=medium
   [ Daniel van Vugt ]
   * Add compositor-x11-Sync-again-at-the-end-of-before_paint.patch
     to fix incomplete redraws in X11 virtual machines (LP: #2054510)
+  * debian/control.in: Stop automatically reverting to the old uploaders.
 
  -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Thu, 22 Feb 2024 15:25:36 +0800
 
