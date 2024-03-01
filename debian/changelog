@@ -1,3 +1,10 @@
+mutter (42.9-0ubuntu7) UNRELEASED; urgency=medium
+
+  * Add build-Set-built-headers-as-libmutter_dep-sources.patch to prevent
+    occasional build failures depending on parallelism (LP: #2055530)
+
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Fri, 01 Mar 2024 17:24:49 +0800
+
 mutter (42.9-0ubuntu6) jammy; urgency=medium
 
   [ Kai-Heng Feng ]

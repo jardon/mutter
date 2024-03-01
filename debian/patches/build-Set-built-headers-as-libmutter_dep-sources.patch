@@ -1,0 +1,43 @@
+From: =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@gmail.com>
+Date: Thu, 11 May 2023 20:23:18 +0200
+Subject: build: Set built headers as libmutter_dep sources
+
+This should help avoiding compiling objects depending on built headers
+to fail if they happen to be built before the sources are built.
+
+Part-of: <https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3000>
+
+Origin: Upstream commit 99a58be10481b5d1ca29ff4f4ca3e0091728f4b5
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/2055530
+Forwarded: not-needed
+Last-Update: 2024-03-01
+---
+ src/meson.build | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/src/meson.build b/src/meson.build
+index 13a69c1..c018f79 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -1015,6 +1015,13 @@ subdir('meta')
+ 
+ mutter_built_sources += mutter_enum_types
+ 
++mutter_built_headers = []
++foreach built_source : mutter_built_sources
++  if built_source.full_path().endswith('.h')
++    built_headers += [built_source]
++  endif
++endforeach
++
+ libmutter = shared_library(libmutter_name,
+   mutter_sources,
+   mutter_built_sources,
+@@ -1039,6 +1046,7 @@ libmutter = shared_library(libmutter_name,
+ libmutter_dep = declare_dependency(
+   link_with: libmutter,
+   include_directories: mutter_includes,
++  sources: mutter_built_headers,
+   dependencies: [
+     libmutter_cogl_dep,
+     libmutter_clutter_dep,
