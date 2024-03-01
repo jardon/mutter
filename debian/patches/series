@@ -17,3 +17,4 @@ Revert-data-udev-Don-t-disable-KMS-modifiers-on-newer-i91.patch
 gen_default_modes-Consider-reduced-blanking-with-lower-pi.patch
 compositor-x11-Sync-again-at-the-end-of-before_paint.patch
 build-Set-built-headers-as-libmutter_dep-sources.patch
+cogl-gl-framebuffer-Fix-inverted-test-in-ensure_bits_init.patch
