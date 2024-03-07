@@ -12,6 +12,7 @@ libmutter-14.so.0 libmutter-14-0 #MINVER#
  meta_anonymous_file_size@Base 43.0
  meta_backend_add_gpu@Base 43.0
  meta_backend_capabilities_get_type@Base 43.0
+ meta_backend_freeze_keyboard@Base 46~rc
  meta_backend_get_capabilities@Base 43.0
  meta_backend_get_clutter_backend@Base 43.0
  meta_backend_get_color_manager@Base 43.0
@@ -38,6 +39,8 @@ libmutter-14.so.0 libmutter-14-0 #MINVER#
  (arch=linux-any)meta_backend_native_get_type@Base 43.0
  meta_backend_native_get_udev@Base 44~rc
  meta_backend_set_keymap@Base 43.0
+ meta_backend_unfreeze_keyboard@Base 46~rc
+ meta_backend_ungrab_keyboard@Base 46~rc
  meta_backend_x11_nested_get_type@Base 43.0
  meta_background_actor_get_type@Base 43.0
  meta_background_actor_new@Base 43.0
@@ -176,7 +179,6 @@ libmutter-14.so.0 libmutter-14-0 #MINVER#
  meta_display_corner_get_type@Base 43.0
  meta_display_direction_get_type@Base 43.0
  meta_display_focus_default_window@Base 43.0
- meta_display_freeze_keyboard@Base 43.0
  meta_display_get_compositor@Base 43.0
  meta_display_get_compositor_modifiers@Base 43.0
  meta_display_get_context@Base 43.0
@@ -216,9 +218,7 @@ libmutter-14.so.0 libmutter-14-0 #MINVER#
  meta_display_set_cursor@Base 43.0
  meta_display_set_input_focus@Base 43.0
  meta_display_sort_windows_by_stacking@Base 43.0
- meta_display_unfreeze_keyboard@Base 43.0
  meta_display_ungrab_accelerator@Base 43.0
- meta_display_ungrab_keyboard@Base 43.0
  meta_display_unset_input_focus@Base 43.0
  meta_display_xserver_time_is_before@Base 43.0
  meta_dnd_get_type@Base 43.0
@@ -245,6 +245,7 @@ libmutter-14.so.0 libmutter-14-0 #MINVER#
  meta_gamma_lut_equal@Base 44~rc
  meta_gamma_lut_free@Base 44~rc
  meta_gamma_lut_new@Base 44~rc
+ meta_gamma_lut_new_sized@Base 46~rc
  meta_get_clutter_debug_flags@Base 43.0
  meta_get_debug_paint_flags@Base 43.0
  meta_get_locale_direction@Base 43.0
@@ -347,6 +348,7 @@ libmutter-14.so.0 libmutter-14-0 #MINVER#
  meta_kms_update_free@Base 43.0
  meta_kms_update_get_connector_updates@Base 43.0
  meta_kms_update_get_crtc_color_updates@Base 44~rc
+ meta_kms_update_get_crtc_updates@Base 46~rc
  meta_kms_update_get_cursor_plane_assignment@Base 43.0
  meta_kms_update_get_device@Base 43.0
  meta_kms_update_get_mode_sets@Base 43.0
@@ -360,6 +362,7 @@ libmutter-14.so.0 libmutter-14-0 #MINVER#
  meta_kms_update_set_max_bpc@Base 44~rc
  meta_kms_update_set_privacy_screen@Base 44~rc
  meta_kms_update_set_underscanning@Base 44~rc
+ meta_kms_update_set_vrr@Base 46~rc
  meta_kms_update_states_sync@Base 43.0
  meta_kms_update_take_result_listeners@Base 45~beta.1
  meta_later_type_get_type@Base 43.0
@@ -465,6 +468,7 @@ libmutter-14.so.0 libmutter-14-0 #MINVER#
  meta_monitor_mode_get_flags@Base 43.0
  meta_monitor_mode_get_id@Base 43.0
  meta_monitor_mode_get_refresh_rate@Base 43.0
+ meta_monitor_mode_get_refresh_rate_mode@Base 46~rc
  meta_monitor_mode_get_resolution@Base 43.0
  meta_monitor_mode_get_spec@Base 43.0
  meta_monitor_mode_should_be_advertised@Base 43.0
@@ -719,6 +723,7 @@ libmutter-14.so.0 libmutter-14-0 #MINVER#
  (arch=linux-any)meta_wayland_client_get_type@Base 43.0
  (arch=linux-any)meta_wayland_client_hide_from_window_list@Base 43.0
  meta_wayland_client_make_desktop@Base 46~beta
+ meta_wayland_client_make_dock@Base 46~rc
  meta_wayland_client_matches@Base 44~beta
  (arch=linux-any)meta_wayland_client_new@Base 43.0
  meta_wayland_client_new_indirect@Base 44~beta
@@ -780,7 +785,6 @@ libmutter-14.so.0 libmutter-14-0 #MINVER#
  meta_window_foreach_transient@Base 43.0
  meta_window_frame_rect_to_client_rect@Base 43.0
  meta_window_get_buffer_rect@Base 43.0
- meta_window_get_client_machine@Base 43.0
  meta_window_get_client_type@Base 43.0
  meta_window_get_compositor_private@Base 43.0
  meta_window_get_description@Base 43.0
@@ -1310,29 +1314,23 @@ libmutter-clutter-14.so.0 libmutter-14-0 #MINVER#
  clutter_clone_get_type@Base 43.0
  clutter_clone_new@Base 43.0
  clutter_clone_set_source@Base 43.0
- clutter_color_add@Base 43.0
  clutter_color_alloc@Base 43.0
  clutter_color_copy@Base 43.0
- clutter_color_darken@Base 43.0
  clutter_color_equal@Base 43.0
  clutter_color_free@Base 43.0
  clutter_color_from_hls@Base 43.0
  clutter_color_from_pixel@Base 43.0
  clutter_color_from_string@Base 43.0
- clutter_color_get_static@Base 43.0
  clutter_color_get_type@Base 43.0
  clutter_color_hash@Base 43.0
  clutter_color_init@Base 43.0
  clutter_color_interpolate@Base 43.0
- clutter_color_lighten@Base 43.0
  clutter_color_new@Base 43.0
  clutter_color_node_get_type@Base 43.0
  clutter_color_node_new@Base 43.0
- clutter_color_shade@Base 43.0
  clutter_color_state_get_colorspace@Base 43.0
  clutter_color_state_get_type@Base 43.0
  clutter_color_state_new@Base 43.0
- clutter_color_subtract@Base 43.0
  clutter_color_to_hls@Base 43.0
  clutter_color_to_pixel@Base 43.0
  clutter_color_to_string@Base 43.0
@@ -1475,11 +1473,13 @@ libmutter-clutter-14.so.0 libmutter-14-0 #MINVER#
  clutter_frame_clock_get_refresh_rate@Base 43.0
  clutter_frame_clock_get_type@Base 43.0
  clutter_frame_clock_inhibit@Base 43.0
+ clutter_frame_clock_mode_get_type@Base 46~rc
  clutter_frame_clock_new@Base 43.0
  clutter_frame_clock_notify_presented@Base 43.0
  clutter_frame_clock_notify_ready@Base 43.0
  clutter_frame_clock_schedule_update@Base 43.0
  clutter_frame_clock_schedule_update_now@Base 43.0
+ clutter_frame_clock_set_mode@Base 46~rc
  clutter_frame_clock_uninhibit@Base 43.0
  clutter_frame_get_count@Base 44~beta
  clutter_frame_get_frame_deadline@Base 46~beta
@@ -1526,9 +1526,8 @@ libmutter-clutter-14.so.0 libmutter-14-0 #MINVER#
  clutter_grab_dismiss@Base 43.0
  clutter_grab_get_seat_state@Base 43.0
  clutter_grab_get_type@Base 43.0
- clutter_grab_ref@Base 43.0
+ clutter_grab_is_revoked@Base 46~rc
  clutter_grab_state_get_type@Base 43.0
- clutter_grab_unref@Base 43.0
  clutter_grid_layout_attach@Base 43.0
  clutter_grid_layout_attach_next_to@Base 43.0
  clutter_grid_layout_get_child_at@Base 43.0
@@ -1907,7 +1906,6 @@ libmutter-clutter-14.so.0 libmutter-14-0 #MINVER#
  clutter_stage_view_take_scanout@Base 43.0
  clutter_stage_view_transform_rect_to_onscreen@Base 43.0
  clutter_stage_window_get_type@Base 43.0
- clutter_static_color_get_type@Base 43.0
  clutter_step_mode_get_type@Base 43.0
  clutter_swipe_action_get_type@Base 43.0
  clutter_swipe_action_new@Base 43.0
@@ -2200,38 +2198,14 @@ libmutter-cogl-14.so.0 libmutter-14-0 #MINVER#
  cogl_color_equal@Base 43.0
  cogl_color_free@Base 43.0
  cogl_color_get_alpha@Base 43.0
- cogl_color_get_alpha_byte@Base 43.0
- cogl_color_get_alpha_float@Base 43.0
  cogl_color_get_blue@Base 43.0
- cogl_color_get_blue_byte@Base 43.0
- cogl_color_get_blue_float@Base 43.0
  cogl_color_get_green@Base 43.0
- cogl_color_get_green_byte@Base 43.0
- cogl_color_get_green_float@Base 43.0
  cogl_color_get_red@Base 43.0
- cogl_color_get_red_byte@Base 43.0
- cogl_color_get_red_float@Base 43.0
  cogl_color_get_type@Base 46~beta
  cogl_color_init_from_4f@Base 43.0
- cogl_color_init_from_4fv@Base 43.0
- cogl_color_init_from_4ub@Base 43.0
  cogl_color_init_from_hsl@Base 43.0
- cogl_color_new@Base 43.0
  cogl_color_premultiply@Base 43.0
- cogl_color_set_alpha@Base 43.0
- cogl_color_set_alpha_byte@Base 43.0
- cogl_color_set_alpha_float@Base 43.0
- cogl_color_set_blue@Base 43.0
- cogl_color_set_blue_byte@Base 43.0
- cogl_color_set_blue_float@Base 43.0
- cogl_color_set_green@Base 43.0
- cogl_color_set_green_byte@Base 43.0
- cogl_color_set_green_float@Base 43.0
- cogl_color_set_red@Base 43.0
- cogl_color_set_red_byte@Base 43.0
- cogl_color_set_red_float@Base 43.0
  cogl_color_to_hsl@Base 43.0
- cogl_color_unpremultiply@Base 43.0
  cogl_context_format_supports_upload@Base 43.0
  cogl_context_free_timestamp_query@Base 43.0
  cogl_context_get_display@Base 43.0
@@ -2473,8 +2447,6 @@ libmutter-cogl-14.so.0 libmutter-14-0 #MINVER#
  cogl_pipeline_set_alpha_test_function@Base 43.0
  cogl_pipeline_set_blend@Base 43.0
  cogl_pipeline_set_blend_constant@Base 43.0
- cogl_pipeline_set_color4f@Base 43.0
- cogl_pipeline_set_color4ub@Base 43.0
  cogl_pipeline_set_color@Base 43.0
  cogl_pipeline_set_cull_face_mode@Base 43.0
  cogl_pipeline_set_depth_state@Base 43.0
