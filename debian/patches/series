@@ -8,3 +8,4 @@ workarounds/tests-Skip-thread-priority-test.patch
 ubuntu/window-Add-ability-to-override-the-edge-constraints.patch
 workarounds/Mark-several-additional-tests-as-flaky.patch
 ubuntu/kms-crtc-Increase-default-deadline-evasion-to-1000-micros.patch
+ubuntu/Nvidia-secondary-GPU-copy-acceleration.patch
