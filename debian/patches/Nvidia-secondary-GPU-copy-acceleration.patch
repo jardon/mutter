@@ -63,10 +63,10 @@ index 09bee95..8b955c9 100644
                                EGLDisplay display,
                                GError   **error);
 diff --git a/src/backends/native/meta-onscreen-native.c b/src/backends/native/meta-onscreen-native.c
-index e8e05e4..8b1cd71 100644
+index 9617d00..3063b6c 100644
 --- a/src/backends/native/meta-onscreen-native.c
 +++ b/src/backends/native/meta-onscreen-native.c
-@@ -890,6 +890,9 @@ copy_shared_framebuffer_gpu (CoglOnscreen                        *onscreen,
+@@ -883,6 +883,9 @@ copy_shared_framebuffer_gpu (CoglOnscreen                        *onscreen,
    COGL_TRACE_BEGIN_SCOPED (CopySharedFramebufferSecondaryGpu,
                             "copy_shared_framebuffer_gpu()");
  
@@ -76,7 +76,7 @@ index e8e05e4..8b1cd71 100644
    render_device = renderer_gpu_data->render_device;
    egl_display = meta_render_device_get_egl_display (render_device);
  
-@@ -1002,8 +1005,7 @@ copy_shared_framebuffer_primary_gpu (CoglOnscreen                        *onscre
+@@ -995,8 +998,7 @@ copy_shared_framebuffer_primary_gpu (CoglOnscreen                        *onscre
    COGL_TRACE_BEGIN_SCOPED (CopySharedFramebufferPrimaryGpu,
                             "copy_shared_framebuffer_primary_gpu()");
  
@@ -86,7 +86,7 @@ index e8e05e4..8b1cd71 100644
      return NULL;
  
    primary_gpu = meta_renderer_native_get_primary_gpu (renderer_native);
-@@ -2676,6 +2678,15 @@ init_secondary_gpu_state_gpu_copy_mode (MetaRendererNative         *renderer_nat
+@@ -2624,6 +2626,15 @@ init_secondary_gpu_state_gpu_copy_mode (MetaRendererNative         *renderer_nat
                                      width, height,
                                      format,
                                      GBM_BO_USE_SCANOUT | GBM_BO_USE_RENDERING);
