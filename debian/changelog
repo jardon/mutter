@@ -1,4 +1,4 @@
-mutter (46.0-1ubuntu1) UNRELEASED; urgency=medium
+mutter (46.0-1ubuntu1) noble; urgency=medium
 
   * Merge with Debian NEW. Remaining changes:
     - Add x11-Add-support-for-fractional-scaling-using-Randr.patch
@@ -6,8 +6,11 @@ mutter (46.0-1ubuntu1) UNRELEASED; urgency=medium
       + Make possible for extensions (such as Tiling Assistant) to override
         window constraints
     - Temporarily disable x11 fractional scaling patch
+  * Ignore test failures on armhf & ppc64el
+  * Drop obsolete Breaks
+  * Add Breaks: gnome-shell << 46.0
 
- -- Jeremy Bícha <jbicha@ubuntu.com>  Mon, 18 Mar 2024 15:48:37 -0400
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Mon, 18 Mar 2024 16:46:38 -0400
 
 mutter (46.0-1) experimental; urgency=medium
 
