@@ -1,3 +1,9 @@
+mutter (46.0-1ubuntu2) noble; urgency=high
+
+  * No change rebuild against libcanberra0t64.
+
+ -- Julian Andres Klode <juliank@ubuntu.com>  Sun, 24 Mar 2024 16:24:22 +0100
+
 mutter (46.0-1ubuntu1) noble; urgency=medium
 
   * Merge with Debian NEW. Remaining changes:
