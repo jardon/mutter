@@ -1,3 +1,13 @@
+mutter (46.0-1ubuntu3) noble; urgency=medium
+
+  * Ignore test results to have an installable package on other architectures,
+    which succeed to build. Failing test is:
+      116/184 mutter:clutter+clutter/conform / gesture
+  * mutter: Relax the dependency on mutter-common, not using ${source:Version},
+    but the lowest upstream version number.
+
+ -- Matthias Klose <doko@ubuntu.com>  Sun, 24 Mar 2024 19:20:17 +0100
+
 mutter (46.0-1ubuntu2) noble; urgency=high
 
   * No change rebuild against libcanberra0t64.

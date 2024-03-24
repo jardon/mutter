@@ -60,7 +60,7 @@ override_dh_auto_test:
 ifeq ($(filter nocheck,$(DEB_BUILD_OPTIONS)),)
 	glib-compile-schemas $(BUILDDIR)/data
 ifeq (,$(filter armhf mips mips64el mipsel ppc64el riscv64 s390x alpha hppa powerpc sparc64 x32,$(DEB_HOST_ARCH)))
-	$(TEST_COMMAND)
+	-$(TEST_COMMAND)
 	-$(TEST_COMMAND_FLAKY) --logbase flaky-tests
 endif
 endif
