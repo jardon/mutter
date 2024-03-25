@@ -1,3 +1,9 @@
+mutter (42.9-0ubuntu8) UNRELEASED; urgency=medium
+
+  * Add fullscreen-maximize to tests-Tag-unstable-tests-as-flaky.patch
+
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Mon, 25 Mar 2024 18:29:39 +0800
+
 mutter (42.9-0ubuntu7) jammy; urgency=medium
 
   * Add build-Set-built-headers-as-libmutter_dep-sources.patch to prevent
