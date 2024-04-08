@@ -1,10 +1,12 @@
-mutter (45.2-0ubuntu5) UNRELEASED; urgency=medium
+mutter (45.2-0ubuntu5) mantic; urgency=medium
 
   * Replace tests-Disable-restore-size-test.patch with
     Mark-several-additional-tests-as-flaky.patch from Debian to avoid
     wasting time on rebuilds for known flaky test cases.
+  * Add compositor-sync-ring-Allow-the-gpu_fence-to-be-moved.patch to
+    fix lag and freezes on the Nvidia Xorg driver (LP: #2059847)
 
- -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Fri, 05 Apr 2024 18:16:33 +0800
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Mon, 08 Apr 2024 17:47:26 +0800
 
 mutter (45.2-0ubuntu4) mantic; urgency=medium
 

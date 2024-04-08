@@ -11,3 +11,4 @@ workarounds/cogl-onscreen-glx-Forcefully-disable-cogl_onscreen_glx_ge.patch
 gen_default_modes-Consider-reduced-blanking-with-lower-pi.patch
 compositor-x11-Sync-again-at-the-end-of-before_paint.patch
 workarounds/Mark-several-additional-tests-as-flaky.patch
+compositor-sync-ring-Allow-the-gpu_fence-to-be-moved.patch
