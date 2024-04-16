@@ -9,3 +9,4 @@ workarounds/kms-crtc-Increase-default-deadline-evasion-to-1000-micros.patch
 Nvidia-secondary-GPU-copy-acceleration.patch
 #ubuntu/x11-Add-support-for-fractional-scaling-using-Randr.patch
 ubuntu/window-Add-ability-to-override-the-edge-constraints.patch
+compositor-sync-ring-Allow-the-gpu_fence-to-be-moved.patch
