@@ -1,3 +1,15 @@
+mutter (46.0-1ubuntu7) noble; urgency=medium
+
+  [ Daniel van Vugt ]
+  * debian/control: mutter-common now breaks libmutter back to focal.
+    Because  we have dropped X11 fractional scaling support for now,
+    `org.gnome.mutter.x11.gschema.xml` is no longer shipped and those
+    older versions of libmutter will fail to start(LP: #2060423)
+  * Add compositor-sync-ring-Allow-the-gpu_fence-to-be-moved.patch
+    to fix lag and freezes on the Nvidia Xorg driver (LP: #2059847)
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Tue, 16 Apr 2024 08:46:54 -0400
+
 mutter (46.0-1ubuntu6) noble; urgency=medium
 
   * Rebuild for CVE-2024-3094
