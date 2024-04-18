@@ -1,3 +1,10 @@
+mutter (46.0-1ubuntu9) noble; urgency=medium
+
+  * Have mutter-common Breaks/Replaces recent magpie-common
+    for org.gnome.mutter.x11.gschema.xml (LP: #2060659)
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Thu, 18 Apr 2024 16:01:26 -0400
+
 mutter (46.0-1ubuntu8) noble; urgency=medium
 
   * d/p/ubuntu/x11-Add-support-for-fractional-scaling: Enable X11 scaling again
