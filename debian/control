@@ -256,14 +256,6 @@ Section: misc
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
-Breaks: libmutter-13-0 (<< 46.0),
-        libmutter-12-0 (<< 46.0),
-        libmutter-11-0 (<< 46.0),
-        libmutter-10-0 (<< 46.0),
-        libmutter-9-0 (<< 46.0),
-        libmutter-8-0 (<< 46.0),
-        libmutter-7-0 (<< 46.0),
-        libmutter-6-0 (<< 46.0)
 Description: shared files for the Mutter window manager
  Mutter is a Wayland display server and X11 window manager and
  compositor library. It contains functionality related to, among other
