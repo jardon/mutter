@@ -1,4 +1,4 @@
-mutter (46.0-1ubuntu8) UNRELEASED; urgency=medium
+mutter (46.0-1ubuntu8) noble; urgency=medium
 
   * d/p/ubuntu/x11-Add-support-for-fractional-scaling: Enable X11 scaling again
     (LP: #2060659)
@@ -6,7 +6,7 @@ mutter (46.0-1ubuntu8) UNRELEASED; urgency=medium
     - This is not needed anymore as the above enabled patch provides the
       gsettings schema
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 18 Apr 2024 02:37:06 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 18 Apr 2024 02:40:05 +0200
 
 mutter (46.0-1ubuntu7) noble; urgency=medium
 
