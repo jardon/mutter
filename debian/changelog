@@ -1,13 +1,15 @@
-mutter (46.1-2ubuntu1) UNRELEASED; urgency=medium
+mutter (46.1-2ubuntu1) oracular; urgency=medium
 
-  * Merge with Debian. Remaining changes:
+  * Merge with Debian (LP: #2064735). Remaining changes:
     - Add x11-Add-support-for-fractional-scaling-using-Randr.patch
     - Add window-Add-ability-to-override-the-edge-constraints.patch
       + Make possible for extensions (such as Tiling Assistant) to override
         window constraints
     - Ignore test results on armhf & ppc64el
+  * Drop compositor-sync-ring-Allow-the-gpu_fence-to-be-moved.patch:
+    applied in new release
 
- -- Jeremy Bícha <jbicha@ubuntu.com>  Fri, 03 May 2024 10:43:13 -0400
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Fri, 03 May 2024 10:46:53 -0400
 
 mutter (46.1-2) experimental; urgency=medium
 
