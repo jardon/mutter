@@ -1,0 +1,34 @@
+From: =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@gmail.com>
+Date: Mon, 27 Mar 2023 21:43:33 +0200
+Subject: wayland/xdg-shell: Dismiss instead of destroy invalid popup
+
+Destroying is insufficient as it doesn't end any popup pointer grab, if
+the dismissed popup was the last. This would later hit an assert as the
+popup grab is assumed to always have at least one popup in its chain.
+
+Closes: https://gitlab.gnome.org/GNOME/mutter/-/issues/2728
+Part-of: <https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2940>
+
+(cherry picked from commit 50a37a7f)
+(cherry picked from commit 8d7e958b862234c5975e95579b252883978f944d)
+(cherry picked from commit 4797a38ac38b16ebfa508b3ef118d9f2497c329f)
+
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/mutter/+bug/2065066
+Bug-GNOME: https://gitlab.gnome.org/GNOME/mutter/-/issues/2563
+---
+ src/wayland/meta-wayland-xdg-shell.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/wayland/meta-wayland-xdg-shell.c b/src/wayland/meta-wayland-xdg-shell.c
+index 78624e8..9cf212d 100644
+--- a/src/wayland/meta-wayland-xdg-shell.c
++++ b/src/wayland/meta-wayland-xdg-shell.c
+@@ -1153,7 +1153,7 @@ dismiss_invalid_popup (MetaWaylandXdgPopup *xdg_popup)
+           top_xdg_popup = meta_wayland_xdg_popup_from_surface (top_popup_surface);
+ 
+           xdg_popup_send_popup_done (top_xdg_popup->resource);
+-          meta_wayland_popup_destroy (top_xdg_popup->popup);
++          meta_wayland_popup_dismiss (top_xdg_popup->popup);
+ 
+           if (top_xdg_popup == xdg_popup)
+             break;
