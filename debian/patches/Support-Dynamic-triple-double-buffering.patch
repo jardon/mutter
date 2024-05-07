@@ -459,7 +459,7 @@ index d3608e8..06c5f7f 100644
 +
  #endif /* CLUTTER_FRAME_H */
 diff --git a/clutter/clutter/clutter-stage-view.c b/clutter/clutter/clutter-stage-view.c
-index 2e47237..8f5e896 100644
+index 5f0cffc..905036f 100644
 --- a/clutter/clutter/clutter-stage-view.c
 +++ b/clutter/clutter/clutter-stage-view.c
 @@ -1191,8 +1191,9 @@ handle_frame_clock_frame (ClutterFrameClock *frame_clock,
@@ -487,10 +487,10 @@ index dffe018..e0215f7 100644
 +
  #endif /* __COGL_ONSCREEN_PRIVATE_H */
 diff --git a/cogl/cogl/cogl-onscreen.c b/cogl/cogl/cogl-onscreen.c
-index ff9e174..b25b4af 100644
+index 842ecec..1e2b11d 100644
 --- a/cogl/cogl/cogl-onscreen.c
 +++ b/cogl/cogl/cogl-onscreen.c
-@@ -510,6 +510,14 @@ cogl_onscreen_pop_head_frame_info (CoglOnscreen *onscreen)
+@@ -508,6 +508,14 @@ cogl_onscreen_pop_head_frame_info (CoglOnscreen *onscreen)
    return g_queue_pop_head (&priv->pending_frame_infos);
  }
  
@@ -506,10 +506,10 @@ index ff9e174..b25b4af 100644
  cogl_onscreen_add_frame_callback (CoglOnscreen *onscreen,
                                    CoglFrameCallback callback,
 diff --git a/src/backends/meta-stage-impl.c b/src/backends/meta-stage-impl.c
-index c45aaf8..683f4ff 100644
+index d549b1c..31fda80 100644
 --- a/src/backends/meta-stage-impl.c
 +++ b/src/backends/meta-stage-impl.c
-@@ -720,6 +720,8 @@ meta_stage_impl_redraw_view (ClutterStageWindow *stage_window,
+@@ -730,6 +730,8 @@ meta_stage_impl_redraw_view (ClutterStageWindow *stage_window,
      {
        g_autoptr (GError) error = NULL;
  
@@ -944,7 +944,7 @@ index 54801dd..deafeb6 100644
 +
  #endif /* META_KMS_CRTC_H */
 diff --git a/src/backends/native/meta-kms-impl-device-atomic.c b/src/backends/native/meta-kms-impl-device-atomic.c
-index 73dd8e6..787d05a 100644
+index 56e791d..0061a94 100644
 --- a/src/backends/native/meta-kms-impl-device-atomic.c
 +++ b/src/backends/native/meta-kms-impl-device-atomic.c
 @@ -431,6 +431,7 @@ process_plane_assignment (MetaKmsImplDevice  *impl_device,
@@ -2528,10 +2528,10 @@ index 3a85ace..676c4c4 100644
                                                              MetaDrmBuffer *fb);
  
 diff --git a/src/backends/native/meta-renderer-native.c b/src/backends/native/meta-renderer-native.c
-index f5f22c7..d896114 100644
+index c43c91b..871834c 100644
 --- a/src/backends/native/meta-renderer-native.c
 +++ b/src/backends/native/meta-renderer-native.c
-@@ -677,12 +677,18 @@ static gboolean
+@@ -684,12 +684,18 @@ static gboolean
  dummy_power_save_page_flip_cb (gpointer user_data)
  {
    MetaRendererNative *renderer_native = user_data;
@@ -2552,7 +2552,7 @@ index f5f22c7..d896114 100644
    renderer_native->power_save_page_flip_source_id = 0;
  
    return G_SOURCE_REMOVE;
-@@ -694,6 +700,9 @@ meta_renderer_native_queue_power_save_page_flip (MetaRendererNative *renderer_na
+@@ -701,6 +707,9 @@ meta_renderer_native_queue_power_save_page_flip (MetaRendererNative *renderer_na
  {
    const unsigned int timeout_ms = 100;
  
@@ -2562,7 +2562,7 @@ index f5f22c7..d896114 100644
    if (!renderer_native->power_save_page_flip_source_id)
      {
        renderer_native->power_save_page_flip_source_id =
-@@ -1402,6 +1411,26 @@ meta_renderer_native_create_view (MetaRenderer       *renderer,
+@@ -1409,6 +1418,26 @@ meta_renderer_native_create_view (MetaRenderer       *renderer,
    return view;
  }
  
@@ -2589,7 +2589,7 @@ index f5f22c7..d896114 100644
  static void
  keep_current_onscreens_alive (MetaRenderer *renderer)
  {
-@@ -1430,6 +1459,7 @@ meta_renderer_native_rebuild_views (MetaRenderer *renderer)
+@@ -1437,6 +1466,7 @@ meta_renderer_native_rebuild_views (MetaRenderer *renderer)
    MetaRendererClass *parent_renderer_class =
      META_RENDERER_CLASS (meta_renderer_native_parent_class);
  
