@@ -1,4 +1,4 @@
-mutter (42.9-0ubuntu8) jammy; urgency=medium
+mutter (42.9-0ubuntu8) UNRELEASED; urgency=medium
 
   * Add fullscreen-maximize to tests-Tag-unstable-tests-as-flaky.patch
   * Add compositor-sync-ring-Allow-the-gpu_fence-to-be-moved.patch to
