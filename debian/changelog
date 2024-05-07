@@ -1,10 +1,16 @@
-mutter (42.9-0ubuntu8) UNRELEASED; urgency=medium
+mutter (42.9-0ubuntu8) jammy; urgency=medium
 
+  [ Daniel van Vugt ]
   * Add fullscreen-maximize to tests-Tag-unstable-tests-as-flaky.patch
   * Add compositor-sync-ring-Allow-the-gpu_fence-to-be-moved.patch to
     fix lag and freezes on the Nvidia Xorg driver (LP: #2059847)
 
- -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Mon, 08 Apr 2024 16:34:38 +0800
+  [ Marco Trevisan (Treviño) ]
+  * debian/patches: Refresh git indexes
+  * debian/patches: Add fix to handle crash on destruction of invalid popups
+    (LP: #2065066)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 07 May 2024 16:40:12 +0200
 
 mutter (42.9-0ubuntu7) jammy; urgency=medium
 
