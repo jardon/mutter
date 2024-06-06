@@ -20,3 +20,4 @@ build-Set-built-headers-as-libmutter_dep-sources.patch
 cogl-gl-framebuffer-Fix-inverted-test-in-ensure_bits_init.patch
 compositor-sync-ring-Allow-the-gpu_fence-to-be-moved.patch
 wayland-xdg-shell-Dismiss-instead-of-destroy-invalid-popu.patch
+backend-native-Don-t-warn-on-EACCES-if-headless.patch
