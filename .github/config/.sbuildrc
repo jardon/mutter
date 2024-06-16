@@ -3,7 +3,7 @@ $log_dir="/home/runner/logs";
 $lintian_opts = ["-L", ">=pedantic", "--show-overrides", "--color", "auto"];
 
 $run_autopkgtest = 1;
-$autopkgtest_opts = ['--', 'schroot', 'vanilla'];
+$autopkgtest_opts = ['--', 'schroot', '-c', 'vanilla'];
 
 # don't remove this, Perl needs it at the end of the file:
 1;
