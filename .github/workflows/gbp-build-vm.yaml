@@ -30,7 +30,7 @@ jobs:
           wget https://github.com/Vanilla-OS/pico-image/releases/download/continuous/vanilla-pico.tar.gz
           sudo mv vanilla-pico.tar.gz /srv/chroots
       - name: Configure Schroot
-        run: cp .github/config/schroot.conf ~/
+        run: sudo cp .github/config/schroot.conf /etc/schroot/
       - name: Configure GBP
         run: |
           cp .github/config/.gbp.conf ~/
