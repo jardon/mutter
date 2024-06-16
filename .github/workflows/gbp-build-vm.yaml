@@ -23,7 +23,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt update
-          sudo apt install -y git-buildpackage ubuntu-dev-tools sbuild-launchpad-chroot gnome-pkg-tools
+          sudo apt install -y git-buildpackage ubuntu-dev-tools sbuild-launchpad-chroot gnome-pkg-tools ${{ vars.ADD_PACKAGES }}
       - name: Download Chroot
         run: |
           sudo mkdir -p /srv/chroots
