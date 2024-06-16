@@ -1,0 +1,73 @@
+name: GBP Build (VM)
+on:
+  workflow_call:
+    inputs:
+      branch:
+        type: string
+        description: Git branch to build
+        default: debian/latest
+  workflow_dispatch:
+    inputs:
+      branch:
+        type: string
+        description: Git branch to build
+        default: debian/latest
+
+jobs:
+  gbp-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y git-buildpackage ubuntu-dev-tools sbuild-launchpad-chroot gnome-pkg-tools
+      - name: Download Chroot
+        run: |
+          sudo mkdir -p /srv/chroots
+          wget https://github.com/Vanilla-OS/pico-image/releases/download/continuous/vanilla-pico.tar.gz
+          sudo mv vanilla-pico.tar.gz /srv/chroots
+      - name: Configure Schroot
+        run: cp .github/config/schroot.conf ~/
+      - name: Configure GBP
+        run: |
+          cp .github/config/.gbp.conf ~/
+      - name: Configure SBuild
+        run: |
+          sudo sbuild-adduser runner
+          cp .github/config/.sbuildrc ~/
+      - name: Import GPG Keys
+        run: |
+          sudo apt update
+          sudo apt install -y ca-certificates
+          echo "${{ secrets.GPG_PUB_KEY }}" > pub.key
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
+          gpg --import pub.key
+          gpg --import private.key
+          rm *.key
+      - name: Configure Devscripts
+        run: |
+          FINGERPRINT=$(gpg --list-keys --with-colons --fingerprint | awk -F: '$1 == "fpr" {print $10;}' | awk 'NR==1{print $1}')
+          cp .github/config/.devscripts ~/
+          sed -i "s/<gpg.key>/$FINGERPRINT/g" ~/.devscripts
+          sed -i "s/<name>/${{ secrets.USER }}/g" ~/.devscripts
+          sed -i "s/<email>/${{ secrets.EMAIL }}/g" ~/.devscripts
+      - name: Checkout Branches
+        run: |
+          git checkout pristine-tar
+          git checkout debian/latest
+      - name: Build Package
+        run: |
+          sudo -H -u runner bash -c "gbp buildpackage"
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: mutter.tar
+          path: |
+            ~/work/deb-ci/deb-ci/build-area/*
+            ~/work/deb-ci/deb-ci/tarballs/*
+      - name: Clean Up
+        if: always()
+        run: |
+          rm -rf ~/.ssh
+          rm -rf ~/.gnupg
