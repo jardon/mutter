@@ -35,8 +35,6 @@ jobs:
           mkdir -p /run/systemd/system
           mkdir -p /usr/lib/systemd/system
           mkdir -p /usr/lib/systemd/user
-      - name: Test
-        run: find / -name dbus.socket
       - name: Configure Git
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - uses: actions/checkout@v3
