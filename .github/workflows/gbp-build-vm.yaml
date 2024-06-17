@@ -61,7 +61,7 @@ jobs:
           git checkout debian/latest
       - name: Build Package
         run: |
-          sudo -H -u runner bash -c "gbp buildpackage --git-verbose"
+          sudo gbp buildpackage
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
