@@ -23,15 +23,18 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt update
-          sudo apt install -y git-buildpackage ubuntu-dev-tools sbuild-launchpad-chroot gnome-pkg-tools ${{ vars.ADD_PACKAGES }}
+          sudo apt install -y git-buildpackage ubuntu-dev-tools sbuild-launchpad-chroot gnome-pkg-tools
       - name: Download Chroot
         run: |
           sudo mkdir -p /srv/chroots
           wget https://github.com/Vanilla-OS/pico-image/releases/download/continuous/vanilla-pico.tar.gz
           sudo mv vanilla-pico.tar.gz /srv/chroots
-          sudo chown -R runner:sbuild /srv
+          sudo chown -R root:sbuild /srv
       - name: Configure Schroot
-        run: sudo cp .github/config/schroot.conf /etc/schroot/
+        run: |
+          sudo cp .github/config/schroot.conf /etc/schroot/
+          sudo schroot -c source:vanilla apt update
+          sudo schroot -c source:vanilla -- apt install -y debhelper
       - name: Configure GBP
         run: |
           cp .github/config/.gbp.conf ~/
