@@ -5,13 +5,13 @@ on:
       branch:
         type: string
         description: Git branch to build
-        default: vanilla/latest
+        default: debian/latest
   workflow_dispatch:
     inputs:
       branch:
         type: string
         description: Git branch to build
-        default: vanilla/latest
+        default: debian/latest
 
 jobs:
   gbp-build:
