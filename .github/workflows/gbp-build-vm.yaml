@@ -33,8 +33,9 @@ jobs:
       - name: Configure Schroot
         run: |
           sudo cp .github/config/schroot.conf /etc/schroot/
-          sudo schroot -c source:vanilla apt update
-          sudo schroot -c source:vanilla -- apt install -y debhelper
+          sudo schroot -c source:vanilla -- apt update
+          sudo schroot -c source:vanilla -- apt dist-upgrade
+          sudo schroot -c source:vanilla -- apt install -y debhelper ${{ vars.ADD_PACKAGES }}
       - name: Configure GBP
         run: |
           cp .github/config/.gbp.conf ~/
