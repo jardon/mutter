@@ -67,7 +67,7 @@ jobs:
           git checkout ${{ inputs.branch }}
       - name: Build Package
         run: |
-          gbp buildpackage
+          dpkg-buildpackage -b -uc -us
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
