@@ -59,11 +59,9 @@ jobs:
         run: |
           git checkout pristine-tar
           git checkout debian/latest
-      - name: Build w/ sbuild
-        run: sudo -H -u runner bash -c "sbuild -c source:vanilla"
       - name: Build Package
         run: |
-          sudo -H -u runner bash -c "gbp buildpackage"
+          sudo -H -u runner bash -c "gbp buildpackage --git-verbose"
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
