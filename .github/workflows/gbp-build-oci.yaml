@@ -63,9 +63,7 @@ jobs:
           git checkout pristine-tar
           git checkout ${{ inputs.branch }}
       - name: Build Package
-        run: |
-          mkdir -p /run/dbus/system_bus_socket
-          dpkg-buildpackage -b -uc -us
+        run: gbp buildpackage
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
