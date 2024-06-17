@@ -68,13 +68,17 @@ jobs:
       - name: Build Package
         run: |
           DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -b -uc -us
+          pwd
+          ls -la
+          ls -la ..
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.repository.name }}
           path: |
-            ~/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/build-area/*
-            ~/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/tarballs/*
+            /__w/${{ github.event.repository.name }}/*.deb
+            /__w/${{ github.event.repository.name }}/.buildinfo
+            /__w/${{ github.event.repository.name }}/.changes
       - name: Clean Up
         if: always()
         run: |
