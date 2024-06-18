@@ -27,11 +27,6 @@ jobs:
           rm /etc/apt/sources.list.d/vanilla-base.sources
           apt update
           apt install -y git-buildpackage ubuntu-dev-tools gnome-pkg-tools git ${{ vars.ADD_PACKAGES }}
-      - name: Create systemd Directory
-        run: |
-          mkdir -p /run/systemd/system
-          mkdir -p /usr/lib/systemd/system
-          mkdir -p /usr/lib/systemd/user
       - name: Configure Git
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - uses: actions/checkout@v3
